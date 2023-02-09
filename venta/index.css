@@ -8,15 +8,17 @@ body{
 }
 
 .container{
-    background-color: #D0D0D0;
+    background-color: #EEEEEE;  
     border-radius: 25px;
+    box-shadow: 5px 5px 4px #000;
 }
 
 .contenedor{
-    padding-top: 2%;
+    padding: 2%;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr; 
     gap: 10px;
+    
     
 }
 
@@ -26,10 +28,12 @@ body{
 
 .boton-logout{
     border-radius: 25px;
-    padding: 5px;
+    width: 103px;
+    height: 49px;
     background-color: #FB5151;
     border-color: #FB5151;
     color: white;
+    font-size: 24px;
 }
 
 .titulo{
@@ -40,16 +44,80 @@ body{
     grid-row-start: span 3;  
 }
 
-.catalogo-container{
-    background-color: yellow;
+input{
+    border-radius: 25px;
+     
+}
+
+.catalogo-container{ 
     grid-row-start: span 4; 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .prod{
     background-color: #D9D9D9 ;
     border-radius: 25px;
-    width: 150px;
-    height: 150px;
+    width: 320px;
+    height: 100px;
+    box-shadow: 5px 5px 4px #999;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    
+}
+
+.left {
+    width: 110px;
+    height: 100px; 
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 25px 0 0 25px;
+}
+
+
+.cen{
+    width: 120px;
+    height: 100px; 
+    text-align: center;
+    border: 1px solid #000000;
+}
+
+.right{
+    width: 100px;
+    height: 100px; 
+    text-align: center;
+}
+
+.plus{
+    background-color: #393E46;
+    color: #ffff;
+    text-align: center;
+    border-radius: 15px;
+    margin-top: 20px;
+    height: 60px;
+    width: 60px;
+    font-size: 30px;
+}
+
+.up{
+    border-bottom: 1px solid #000000;
+    font-family: 'Franklin Gothic Medium';
+    font-size: 14px;
+}
+
+.price{
+    border-bottom: 1px solid #000000;
+    font-family: 'Franklin Gothic Medium';
+    padding: 10px;
+}
+
+.down{   
+    padding-top: 5px;
+    font-family: 'Franklin Gothic Medium';
+    font-size: 12px;
 }

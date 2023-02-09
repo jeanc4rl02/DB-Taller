@@ -34,9 +34,9 @@
                 <div class="catalogo-container">
                     <div  class="" v-for="(repuesto, index) of repuestos">
                                     
-                        <div class="prod">
+                        <div class="prod ">
                             <div class="left">
-                                <img :src="repuesto.imagen" class="img-fluid " alt=" ">
+                                <img :src="repuesto.imagen"  alt="">
                             </div>
                             <div class="cen">
                                 <div  class="up">
@@ -46,11 +46,11 @@
                                     ${{repuesto.valor}}usd
                                 </div>
                                 <div  class="down">
-                                    {{repuesto.cantidad}}
+                                    {{repuesto.cantidad}} und
                                 </div>
                             </div>
                             <div class="right">
-                                <button class="btn btn-dark btn-sm" > + </button> 
+                                <button class="plus" > + </button> 
                             </div> 
                         </div> 
                     </div> 
