@@ -97,13 +97,22 @@ const app = Vue.createApp({
       isPendingRevisionsScreen: false,
       isRevisionScreen: false,
       isPartsScreen: false,
-      isPreDeliverCheckScreen: false
+      isPreDeliverCheckScreen: false,
+      isFactura: false
     }
   },
 
   methods: {
+    openFactura () {
+      ;(this.isPendingRevisionsScreen = false),
+        (this.isRevisionScreen = false),
+        (this.isPartsScreen = false),
+        (this.isPreDeliverCheckScreen = false),
+        (this.isFactura = true)
+    },
     onLoadPage () {
       this.isPendingRevisionsScreen = true
+      this.isFactura = true
       if (
         //carsEntries:
         localStorage.getItem('carsEntries') === null ||

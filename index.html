@@ -37,6 +37,7 @@
         id="revisiones"
         class="container mt-5 mb-5 w-50-responsive border"
       >
+      <button @click="openFactura">Factura</button>
         <div class="d-flex justify-content-end container">
           <button
             id=""
@@ -288,7 +289,7 @@
 
 
         <!-- Factura -->
-        <div id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
+        <div v-if="isFactura" id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
           <div class="d-flex justify-content-end container">
             <button
               id=""
