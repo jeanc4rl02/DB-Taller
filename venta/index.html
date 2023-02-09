@@ -24,7 +24,7 @@
                 <div class="nombre">
                     <span>Cliente:</span>
                 </div> 
-                <input type="text"  placeholder="Identificación"> 
+                <input type="number"  placeholder="Identificación" v-model="cliente"> 
             </div>
 
             <div class="catalogo">
@@ -88,12 +88,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td> $ 0 usd</td>
+                                <td> $ 0 </td>
                                 </tr >                     
                          </tbody>
                          <tbody v-else>
                                      
-                            <tr v-for="(item, index) of factura">
+                            <tr v-for="(item, index) of detalle">
                                 <th scope="row">{{index}}</th>
                                 <td>{{item.nombre}}</td>
                                 <td>
@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                                 </td>
-                                <td> $ {{item.valor}} usd</td>
+                                <td> ${{item.valor}} USD   </td>
                             </tr> 
                          </tbody>
                     
@@ -118,7 +118,7 @@
                 <div class="row pr-5">
                     <div class="col text-right">
                         <h3>
-                            Total: 00 usd 
+                            Total: {{total}} USD
                         </h3>
                             
 
@@ -126,7 +126,7 @@
                 </div>
 
                 <div class="guar">
-                    <button class="guardar">Guardar</button>
+                    <button class="guardar" @click="guardar">Guardar</button>
                 </div>
   
             </div>

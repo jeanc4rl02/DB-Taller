@@ -4,23 +4,27 @@ const app = new Vue({
       cliente: undefined,
       repuestos: [],  
       factura: [],
+      total: 0,
+      cliente: undefined,
+      detalle: []
     },
     methods:{
      agregar(id){
         let rep = false
         if(  this.repuestos[id].cantidad > 0){
 
-            this.factura.map( producto => {
+            this.detalle.map( producto => {
                 if(producto.id === id){
                     rep = true
                     producto.cantidad++
                     this.repuestos[id].cantidad-- 
+                    producto.valor = this.repuestos[id].valor * producto.cantidad
                 }
             })
              
             if(rep === false){
                 this.repuestos[id].cantidad-- 
-                this.factura.push(
+                this.detalle.push(
                     {
                         "id": this.repuestos[id].id,
                         "nombre": this.repuestos[id].nombre,
@@ -33,26 +37,60 @@ const app = new Vue({
         }else{
             alert("El producto ya no tienen stock disponible")
         }
+        this.calcular()
      },
 
      aumentar(id, index){
         if(  this.repuestos[id].cantidad > 0){ 
-            this.factura[index].cantidad++
-            this.repuestos[id].cantidad--
+            this.detalle[index].cantidad++
+            this.repuestos[id].cantidad-- 
+            this.detalle[index].valor = this.detalle[index].cantidad * this.repuestos[id].valor
+            
         }else{
             alert("El producto ya no tienen stock disponible")
         }
+        this.calcular()
      },
 
      restar(id,index){
-        if(  this.factura[index].cantidad > 0){ 
-            if(this.factura[index].cantidad === 1){
-                this.factura.pop(index)
-            }
-            this.factura[index].cantidad--
+        if(  this.detalle[index].cantidad > 0){ 
             this.repuestos[id].cantidad++
+            if(this.detalle[index].cantidad === 1){
+
+                this.detalle.pop(index)
+            }
+            this.detalle[index].cantidad--
+            this.detalle[index].valor = this.detalle[index].cantidad * this.repuestos[id].valor
+            
         } 
-     }
+        this.calcular()
+     },
+
+    calcular(){
+        this.total= 0
+        if(this.detalle != null){
+            this.detalle.map(producto => {
+                this.total += producto.valor 
+            })
+        } 
+    },
+    guardar(){
+        if(this.cliente != undefined && this.detalle != null){
+            this.factura.push({
+                "cliente": this.cliente,
+                "factura": this.detalle,
+                "total": this.total
+            })
+            this.cliente = undefined
+            this.detalle = []
+            this.total = 0
+        }else{
+            alert("Campo de cliente o factura vacia")
+        }
+
+    }
+
+    
         
     },
     created(){
@@ -123,6 +161,6 @@ const app = new Vue({
         )
     },
     computed:{
-
+        
     }
 })
