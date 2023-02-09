@@ -10,3 +10,8 @@ body {
     background-color: #D0D0D0;
     border-radius: 15px;
 }
+
+#btnGuardar{
+    background-color: #FA6C17;
+    color: #FFFFFF;
+}
