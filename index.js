@@ -11,12 +11,12 @@ const app = Vue.createApp({
         { name: 'repuesto7', price: 700, quantity: 100 }
       ],
       checkups: [
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null }
+        { name: 'Tires', done: false },
+        { name: 'Lights', done: false },
+        { name: 'Brakes', done: false },
+        { name: 'Fluids', done: true },
+        { name: 'Fumes', done: false },
+        { name: 'Mirrors', done: false }
       ],
       carsEntries: [
         {
@@ -63,6 +63,14 @@ const app = Vue.createApp({
         { fullName: 'Luis Sanchez', phone: '3028964132' },
         { fullName: 'martha perez', phone: '3147852032' }
       ],
+      status: [
+        'To revise',
+        'In revision',
+        'Under repair',
+        'Repaired',
+        'To final check',
+        'To deliver'
+      ],
       failures: [],
       usedParts: [],
       selectedCar: 'ggg-555',
@@ -70,19 +78,43 @@ const app = Vue.createApp({
       partInput: null,
       partQuantityInput: null,
       carToChange: null,
-      isRepaired: null
+      isRepaired: null,
+
     }
   },
 
   methods: {
-    findCarToChange () {
-      this.carToChange = this.carsEntries.find(car => {
-        return car.plate === this.selectedCar
-      })
-
+    onLoadPage(){
+        localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries));
+    },
+    /************* */
+    findCarToChange (index) {
+      console.log('CAR', index)
+      this.carToChange = this.carsEntries[index]
+      //dEPENDIENDO DEL ESTADO DEL CARRO SELECCIONADO, SEABRE UNA VENTANA U OTRA
       console.log('carToChange', this.carToChange)
-      //dEPENDIENDO DEL ESTADO DEL CARRO SELECCIONADO, SEABRE UNA VENTANA U OTRA:
-     
+    },
+    changeCarState () {
+      //y cambia de un estado a otro:
+      switch (this.carToChange.state) {
+        case 'To revise':
+          break
+
+        case 'In revision':
+          break
+
+        case 'Under repair':
+          break
+
+        case 'Repaired':
+          break
+
+        case 'To final check':
+          break
+
+        case 'To deliver':
+          break
+      }
     },
 
     addFailure () {
@@ -132,12 +164,28 @@ const app = Vue.createApp({
         )
       } else {
         alert('The vehicle has been repaired.')
-        this.carToChange.state='REPAIRED'
-        console.log("ESTADO",this.carToChange)
+        this.carToChange.state = 'REPAIRED'
+        console.log('ESTADO', this.carToChange)
+      }
+    },
+    finishCheckup () {
+      const isFalse = this.checkups.some(checkup => checkup.done === false)
+
+      if (isFalse) {
+        alert(
+          'SOme checkups are not done yet. Please complete all the checkups to finish'
+        )
+      } else {
+        alert('car ready to deliver')
+        console.log(this.carToChange)
       }
     }
   },
-  created: function () {}
+  created: function () {
+    this.onLoadPage()
+
+    
+  }
 })
 
 app.mount('#app')

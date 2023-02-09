@@ -9,9 +9,9 @@
   </head>
   <body>
     <section id="app">
-      <div v-for="car in carsEntries">
+      <div v-for="(car, index) in carsEntries">
         {{ car }}
-        <button @click="findCarToChange">Revisar</button>
+        <button @click="findCarToChange(index)">Revisar</button>
       </div>
 
       <div>
@@ -26,12 +26,15 @@
 
       <div>
         <h4>Parts to use</h4>
-        <input v-model="partInput" />
+        <form>
+          <input v-model="partInput" />
         <input
           placeholder="cantidad"
           type="number"
           v-model="partQuantityInput"
         />
+        </form>
+        
         <button @click="addPart">Add part</button>
 
         <div v-for="part in usedParts">
@@ -42,6 +45,18 @@
       <input type="checkbox" v-model="isRepaired" />
 
       <button @click="finishRevision">Save</button>
+
+
+      <div>
+        <h1>Chequeo pre-entrega</h1>
+        <form>
+          <div v-for="check in checkups">
+            <input type="checkbox" v-model="check.done">{{check.name}}</input>
+          </div>
+
+        </form>
+       <button @click="finishCheckup">Terminar chequeo</button>
+      </div>
     </section>
 
     <script src="./index.js"></script>
