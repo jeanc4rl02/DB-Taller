@@ -11,45 +11,58 @@ const app = Vue.createApp({
         { name: 'repuesto7', price: 700, quantity: 100 }
       ],
       checkups: [
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null },
-        { name: 'tires', done: null }
+        { name: 'Tires', done: true },
+        { name: 'Lights', done: true },
+        { name: 'Brakes', done: true },
+        { name: 'Fluids', done: true },
+        { name: 'Fumes', done: true },
+        { name: 'Mirrors', done: true }
       ],
       carsEntries: [
         {
-          entryDate: '01/01/2001',
-          deliveryDate: '02/02/2003',
+          entryDate: '01/01/2023',
+          deliveryDate: null,
           description: '',
-          car: 'mazda',
-          plate: 'ggg-111',
-          state: 'to revise'
+          brand: 'mazda 323',
+          model: 2001,
+          plate: 'NRO-185',
+          state: 'To revise'
         },
         {
-          entryDate: '01/01/2001',
-          deliveryDate: '02/02/2003',
+          entryDate: '01/04/2001',
+          deliveryDate: null,
           description: '',
-          car: 'mazda',
-          plate: 'ggg-222',
-          state: 'to revise'
+          brand: 'subaru r12',
+          model: 2011,
+          plate: 'NSY-578',
+          state: 'To revise'
         },
         {
-          entryDate: '01/01/2001',
-          deliveryDate: '02/02/2003',
+          entryDate: '01/08/2001',
+          deliveryDate: null,
           description: '',
-          car: 'mazda',
-          plate: 'ggg-444',
-          state: 'to final check'
+          brand: 'bmw e21',
+          model: 2012,
+          plate: 'SIE-901',
+          state: 'To final check'
         },
         {
-          entryDate: '01/01/2001',
-          deliveryDate: '02/02/2003',
+          entryDate: '01/11/2001',
+          deliveryDate: null,
           description: '',
-          car: 'mazda',
-          plate: 'ggg-555',
-          state: 'to final check'
+          brand: 'renault sandero',
+          model: 2022,
+          plate: 'EPG-106',
+          state: 'To final check'
+        },
+        {
+          entryDate: '01/11/2001',
+          deliveryDate: null,
+          description: '',
+          brand: 'Toyota MC12',
+          model: 2019,
+          plate: 'FGA-810',
+          state: 'To final check'
         }
       ],
       cars: [
@@ -63,6 +76,15 @@ const app = Vue.createApp({
         { fullName: 'Luis Sanchez', phone: '3028964132' },
         { fullName: 'martha perez', phone: '3147852032' }
       ],
+      status: [
+        'To revise',
+        'In revision',
+        'Under repair',
+        'Repaired',
+        'To final check',
+        'In checking',
+        'To deliver'
+      ],
       failures: [],
       usedParts: [],
       selectedCar: 'ggg-555',
@@ -70,19 +92,104 @@ const app = Vue.createApp({
       partInput: null,
       partQuantityInput: null,
       carToChange: null,
-      isRepaired: null
+      isRepaired: null,
+      isPendingRevisionsScreen: false,
+      isRevisionScreen: false,
+      isPreDeliverCheckScreen: false
     }
   },
 
   methods: {
-    findCarToChange () {
-      this.carToChange = this.carsEntries.find(car => {
-        return car.plate === this.selectedCar
+    onLoadPage () {
+      this.isPendingRevisionsScreen = true
+      if (
+        //carsEntries:
+        localStorage.getItem('carsEntries') === null ||
+        localStorage.getItem('carsEntries') === undefined ||
+        //failures:
+        localStorage.getItem('failures') === null ||
+        localStorage.getItem('failures') === undefined ||
+        //usedParts:
+        localStorage.getItem('usedParts') === null ||
+        localStorage.getItem('usedParts') === undefined
+      ) {
+        localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
+        localStorage.setItem('failures', JSON.stringify(this.failures))
+        localStorage.setItem('usedParts', JSON.stringify(this.usedParts))
+      } else {
+        //carsEntries:
+        localStorage.setItem('carsEntries', localStorage.getItem('carsEntries'))
+        const toUpdateLocalCarsEntries = JSON.parse(
+          localStorage.getItem('carsEntries')
+        )
+        this.carsEntries = toUpdateLocalCarsEntries
+        //failures:
+        localStorage.setItem('failures', localStorage.getItem('failures'))
+        const toUpdateLocalFailures = JSON.parse(
+          localStorage.getItem('failures')
+        )
+        this.failures = toUpdateLocalFailures
+        //usedParts:
+        localStorage.setItem('usedParts', localStorage.getItem('usedParts'))
+        const toUpdateLocalUsedParts = JSON.parse(
+          localStorage.getItem('usedParts')
+        )
+        this.usedParts = toUpdateLocalUsedParts
+      }
+    },
+    /************* */
+    findCarToChange (car) {
+      this.carToChange = this.carsEntries.find(cars => {
+        return cars.plate === car.plate
       })
-
+      //dEPENDIENDO DEL ESTADO DEL CARRO SELECCIONADO, SEABRE UNA VENTANA U OTRA
       console.log('carToChange', this.carToChange)
-      //dEPENDIENDO DEL ESTADO DEL CARRO SELECCIONADO, SEABRE UNA VENTANA U OTRA:
-     
+      this.changeCarState()
+    },
+    updateLocalStorage (where, what) {
+      localStorage.setItem(where, JSON.stringify(what))
+    },
+    changeCarState () {
+      //y cambia de un estado a otro:
+      switch (this.carToChange.state) {
+        case 'To revise':
+          console.log('toy aca')
+          this.carToChange.state = 'In revision'
+
+          Object.assign(this.carsEntries, this.carToChange)
+          this.updateLocalStorage('carsEntries', this.carsEntries)
+          this.isPendingRevisionsScreen = false
+          this.isRevisionScreen = true
+          break
+
+        case 'In revision':
+          this.isPendingRevisionsScreen = false
+          this.isRevisionScreen = true
+          break
+
+        case 'Under repair':
+          break
+
+        case 'Repaired':
+          break
+
+        case 'To final check':
+          this.carToChange.state = 'In checking'
+          Object.assign(this.carsEntries, this.carToChange)
+          this.updateLocalStorage('carsEntries', this.carsEntries)
+          this.isPendingRevisionsScreen = false
+          this.isPreDeliverCheckScreen = true
+          break
+
+        case 'In checking':
+          this.isPendingRevisionsScreen = false
+          this.isPreDeliverCheckScreen = true
+        case 'To deliver':
+          alert(
+            `This car is ready to deliver. The deliver date is: ${this.carToChange.deliveryDate}`
+          )
+          break
+      }
     },
 
     addFailure () {
@@ -97,7 +204,7 @@ const app = Vue.createApp({
           car: this.carToChange.plate,
           failure: this.failureInput
         })
-
+        this.updateLocalStorage('failures', this.failures)
         console.log(this.failures, 'failures')
         this.failureInput = ''
       }
@@ -116,6 +223,8 @@ const app = Vue.createApp({
           quantity: this.partQuantityInput
         })
 
+        this.updateLocalStorage('usedParts', this.usedParts)
+
         console.log(this.usedParts, 'usedParts')
         this.partInput = ''
       }
@@ -130,14 +239,42 @@ const app = Vue.createApp({
         alert(
           'The vehicle has not been repaired. The changes will be saved to future repairings'
         )
+        // this.isPendingRevisionsScreen=true,
+        // this.isRevisionScreen= false,
       } else {
         alert('The vehicle has been repaired.')
-        this.carToChange.state='REPAIRED'
-        console.log("ESTADO",this.carToChange)
+        this.carToChange.state = 'To final check'
+        Object.assign(this.carsEntries, this.carToChange)
+        this.updateLocalStorage('carsEntries', this.carsEntries)
+        console.log('ESTADO', this.carToChange)
+      }
+    },
+    finishCheckup () {
+      const isFalse = this.checkups.some(checkup => checkup.done === false)
+
+      if (isFalse) {
+        alert(
+          'SOme checkups are not done yet. Please complete all the checkups to finish'
+        )
+      } else {
+        alert('car ready to deliver')
+        this.carToChange.deliveryDate = new Date()
+        console.log(
+          'this.carToChange.deliveryDate',
+          this.carToChange.deliveryDate
+        )
+        this.carToChange.state = 'To deliver'
+
+        Object.assign(this.carsEntries, this.carToChange)
+
+        console.log(this.carToChange.deliveryDate)
+        console.log(this.carToChange)
       }
     }
   },
-  created: function () {}
+  created: function () {
+    this.onLoadPage()
+  }
 })
 
 app.mount('#app')

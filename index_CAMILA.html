@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Venta de arroz</title>
+    <title>Taller de mecanica</title>
+    
+    <link rel="stylesheet" href="./styles.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
     <section id="app">
-      <div v-for="car in carsEntries">
+      <div v-for="(car, index) in carsEntries">
         {{ car }}
-        <button @click="findCarToChange">Revisar</button>
+        <button @click="findCarToChange(index)">Revisar</button>
       </div>
-
+<div>
       <div>
         <h4>Failures</h4>
         <input v-model="failureInput" />
@@ -26,12 +28,15 @@
 
       <div>
         <h4>Parts to use</h4>
-        <input v-model="partInput" />
+        <form>
+          <input v-model="partInput" />
         <input
           placeholder="cantidad"
           type="number"
           v-model="partQuantityInput"
         />
+        </form>
+        
         <button @click="addPart">Add part</button>
 
         <div v-for="part in usedParts">
@@ -42,6 +47,18 @@
       <input type="checkbox" v-model="isRepaired" />
 
       <button @click="finishRevision">Save</button>
+
+    </div>
+      <div>
+        <h1>Chequeo pre-entrega</h1>
+        <form>
+          <div v-for="check in checkups">
+            <input type="checkbox" v-model="check.done">{{check.name}}</input>
+          </div>
+
+        </form>
+       <button @click="finishCheckup">Terminar chequeo</button>
+      </div>
     </section>
 
     <script src="./index.js"></script>
