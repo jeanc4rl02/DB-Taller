@@ -11,21 +11,12 @@ const app = Vue.createApp({
         { name: 'repuesto7', price: 700, quantity: 100 }
       ],
       checkups: [
-        { name: 'Tires', done: true },
+        { name: 'Tires', done: false },
         { name: 'Lights', done: true },
         { name: 'Brakes', done: true },
         { name: 'Fluids', done: true },
         { name: 'Fumes', done: true },
         { name: 'Mirrors', done: true }
-      ],
-      status: [
-        'To revise',
-        'In revision',
-        'Under repair',
-        'Repaired',
-        'To final check',
-        'In checking',
-        'To deliver'
       ],
       carsEntries: [
         {
@@ -53,7 +44,7 @@ const app = Vue.createApp({
           brand: 'bmw e21',
           model: 2012,
           plate: 'SIE-901',
-          state: 'To final check'
+          state: 'To revise'
         },
         {
           entryDate: '01/11/2001',
@@ -62,7 +53,7 @@ const app = Vue.createApp({
           brand: 'renault sandero',
           model: 2022,
           plate: 'EPG-106',
-          state: 'To final check'
+          state: 'To revise'
         },
         {
           entryDate: '01/11/2001',
@@ -71,7 +62,7 @@ const app = Vue.createApp({
           brand: 'Toyota MC12',
           model: 2019,
           plate: 'FGA-810',
-          state: 'To final check'
+          state: 'To revise'
         }
       ],
       cars: [
@@ -85,7 +76,7 @@ const app = Vue.createApp({
         { fullName: 'Luis Sanchez', phone: '3028964132' },
         { fullName: 'martha perez', phone: '3147852032' }
       ],
-
+      assignedWorker: null,
       failures: [],
       usedParts: [],
       selectedCar: 'ggg-555',
@@ -99,15 +90,19 @@ const app = Vue.createApp({
       isRevisionScreen: false,
       isPartsScreen: false,
       isPreDeliverCheckScreen: false,
-      isFactura: false
+      isFactura: false,
+      currentLogged: null
     }
   },
 
   methods: {
     onLoadPage () {
       this.isPendingRevisionsScreen = true
-
+      // this.assignWorker()
       if (
+        //currentLogged:
+        localStorage.getItem('currentLogged') === null ||
+        localStorage.getItem('currentLogged') === undefined ||
         //carsEntries:
         localStorage.getItem('carsEntries') === null ||
         localStorage.getItem('carsEntries') === undefined ||
@@ -118,10 +113,23 @@ const app = Vue.createApp({
         localStorage.getItem('usedParts') === null ||
         localStorage.getItem('usedParts') === undefined
       ) {
+        localStorage.setItem(
+          'currentLogged',
+          JSON.stringify(this.assignedWorker)
+        )
         localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
         localStorage.setItem('failures', JSON.stringify(this.failures))
         localStorage.setItem('usedParts', JSON.stringify(this.usedParts))
       } else {
+        //currentLogged:
+        localStorage.setItem(
+          'currentLogged',
+          localStorage.getItem('currentLogged')
+        )
+        const toUpdateLocalCurrentLogged = JSON.parse(
+          localStorage.getItem('carsEntries')
+        )
+        this.currentLogged = toUpdateLocalCurrentLogged
         //carsEntries:
         localStorage.setItem('carsEntries', localStorage.getItem('carsEntries'))
         const toUpdateLocalCarsEntries = JSON.parse(
@@ -142,12 +150,19 @@ const app = Vue.createApp({
         this.usedParts = toUpdateLocalUsedParts
       }
     },
+    assignWorker () {
+      let randNumber = Math.round(Math.random() * this.mechanics.length)
+      console.log('randNumebr', randNumber)
+
+      this.assignedWorker = this.mechanics[randNumber]
+      console.log('this.assignedWorker', this.assignedWorker)
+    },
     /************* */
     findCarToChange (car) {
+      this.assignWorker()
       this.carToChange = this.carsEntries.find(cars => {
         return cars.plate === car.plate
       })
-      //dEPENDIENDO DEL ESTADO DEL CARRO SELECCIONADO, SEABRE UNA VENTANA U OTRA
       console.log('carToChange', this.carToChange)
       this.changeCarState()
     },
@@ -155,7 +170,6 @@ const app = Vue.createApp({
       localStorage.setItem(where, JSON.stringify(what))
     },
     changeCarState () {
-      //y cambia de un estado a otro:
       switch (this.carToChange.state) {
         case 'To revise':
           console.log('toy aca')
@@ -171,13 +185,6 @@ const app = Vue.createApp({
           this.isPendingRevisionsScreen = false
           this.isRevisionScreen = true
           break
-
-        case 'Under repair':
-          break
-
-        case 'Repaired':
-          break
-
         case 'To final check':
           this.carToChange.state = 'In checking'
           Object.assign(this.carsEntries, this.carToChange)
@@ -265,20 +272,20 @@ const app = Vue.createApp({
           fail => fail.car === this.carToChange.plate
         )
 
-        console.log("isFailAdded",isFailAdded)
-        if(isFailAdded){
+        console.log('isFailAdded', isFailAdded)
+        if (isFailAdded) {
           this.carToChange.state = 'To final check'
           Object.assign(this.carsEntries, this.carToChange)
           this.updateLocalStorage('carsEntries', this.carsEntries)
           console.log('ESTADO', this.carToChange)
           alert('The vehicle has been repaired.')
-          this.isRevisionScreen=false
-          this.isPendingRevisionsScreen=true
-        } else{
-          alert('Please insert the vehicles failures before complete the reparation')
+          this.isRevisionScreen = false
+          this.isPendingRevisionsScreen = true
+        } else {
+          alert(
+            'Please insert the vehicles failures before complete the reparation'
+          )
         }
-
-       
       }
     },
     finishCheckup () {

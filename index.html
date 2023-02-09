@@ -105,6 +105,7 @@
               <th>Placa:</th>
               <th>Marca:</th>
               <th>Modelo:</th>
+              <th>Mecánico:</th>
             </tr>
           </thead>
           <tbody>
@@ -130,6 +131,14 @@
                   type="text"
                   class="form-control rounded-5"
                   :value="carToChange.model"
+                  readonly="readonly"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control rounded-5"
+                  :value="assignedWorker.fullName"
                   readonly="readonly"
                 />
               </td>
