@@ -68,7 +68,7 @@
                 <td>{{ car.brand }}, {{ car.model }}, {{ car.plate }}</td>
                 <td>{{ car.state }}</td>
                 <td>
-                  <button @click="findCarToChange(car)">See</button>
+                  <button class="btn btn-info" @click="findCarToChange(car)">See</button>
                 </td>
               </tr>
             </tbody>
@@ -187,11 +187,13 @@
           </table>
           
           <div>
-            <input v-model="isRepaired" type="checkbox">Car repaired</div>
-            <button @click="finishRevision" >Finish revision</button>
+            <input v-model="isRepaired" type="checkbox">&nbsp&nbsp Car repaired</div>
+            <br>
+            <button class="btn btn-warning btn-sm rounded-2" @click="finishRevision" >Finish revision</button>
+            
           </div>
-         
-        </table>
+          <br>
+        
       </div>
 
       <!-- Repuestos -->
@@ -285,16 +287,11 @@
         <div class="d-flex justify-content-center">
 
           <div v-for="check in checkups">
-            <input type="checkbox" v-model="check.done">{{check.name}}</input>
+            <input type="checkbox" v-model="check.done">&nbsp&nbsp&nbsp&nbsp{{check.name}}&nbsp&nbsp&nbsp&nbsp</input> 
           </div>
-          <button
-          id=""
-          type="button"
-          class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
-          @click="finishCheckup"
-        >
-         Save
-        </button>
+          
+          
+          
 
           <!-- <table class="table table-borderless">
             <thead>
@@ -319,6 +316,16 @@
             </tbody>
           </table> -->
         </div>
+        <div class="d-flex justify-content-center">
+        <button
+          id=""
+          type="button"
+          class="btn btn-warning btn-sm mt-3 mr-3 rounded-5 "
+          @click="finishCheckup"
+        >
+         Save
+        </button>
+      </div>
 
 </div>
         <!-- Factura -->
