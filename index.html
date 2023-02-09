@@ -164,14 +164,19 @@
                     +
                   </button>
                   <div v-for="fails in failures">
-                    {{ fails.failure }}
-                    <button
+                    
+                    <div v-if="fails.car==carToChange.plate"> 
+                      {{ fails.failure }}
+                      <button
                       type="button"
                       class="btn btn-danger btn-sm rounded-2"
                       @click="quitFailure(fails.failure,carToChange.plate)"
                     >
                       -
                     </button>
+                    </div>
+                   
+                    
                   </div>
                 </td>
                 <td>
@@ -182,17 +187,16 @@
                 </td>
               </tr>
               <tr>
-                <!-- <td>
-                  <input type="text" class="form-control-md rounded-5" /><button
-                    type="button"
-                    class="btn btn-danger btn-sm rounded-2"
-                  >
-                    -
-                  </button>
-                </td> -->
+                
               </tr>
             </tbody>
           </table>
+          
+          <div>
+            <input v-model="isRepaired" type="checkbox">Car repaired</div>
+            <button @click="finishRevision" >Finish revision</button>
+          </div>
+         
         </table>
       </div>
 

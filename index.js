@@ -92,7 +92,7 @@ const app = Vue.createApp({
       partInput: null,
       partQuantityInput: null,
       carToChange: null,
-      isRepaired: null,
+      isRepaired: false,
       //Screens:
       isPendingRevisionsScreen: false,
       isRevisionScreen: false,
@@ -104,7 +104,7 @@ const app = Vue.createApp({
 
   methods: {
     openFactura () {
-      ;(this.isPendingRevisionsScreen = false),
+      (this.isPendingRevisionsScreen = false),
         (this.isRevisionScreen = false),
         (this.isPartsScreen = false),
         (this.isPreDeliverCheckScreen = false),
@@ -223,18 +223,16 @@ const app = Vue.createApp({
     quitFailure (fail, plate) {
       const toQuit = fail
       console.log('quit', toQuit)
+      console.log('plate', plate)
       console.log('FAILURES', this.failures)
 
-      const currentCarFails = this.failures.filter(fail => {
-        return fail.car == plate
+      const updatedCarFails = this.failures.filter(car => {
+        return car.car===plate && car.failure===toQuit? null:car 
       })
-      console.log('currentCarFails', currentCarFails)
+      console.log('updatedCarFails', updatedCarFails)
 
-      let result = currentCarFails.filter(fail => {
-        return fail.failure !== toQuit
-      })
-
-      console.log('result', result)
+      this.failures=updatedCarFails
+      this.updateLocalStorage('failures',this.failures)
     },
     addPart () {
       if (
@@ -266,9 +264,9 @@ const app = Vue.createApp({
         alert(
           'The vehicle has not been repaired. The changes will be saved to future repairings'
         )
-        // this.isPendingRevisionsScreen=true,
-        // this.isRevisionScreen= false,
-      } else {
+        this.isPendingRevisionsScreen=true,
+        this.isRevisionScreen= false
+      } else{
         alert('The vehicle has been repaired.')
         this.carToChange.state = 'To final check'
         Object.assign(this.carsEntries, this.carToChange)
