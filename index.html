@@ -86,9 +86,9 @@
                 <td><input type="text" class="form-control-md rounded-5"><button type="button" class="btn btn-success btn-sm rounded-2">+</button></td>
                 <td>
                   <div>
-                    <p>Repuesto 1</p><button type="button" class="btn btn-danger btn-sm rounded-2">-</button><button type="button" class="btn btn-success btn-sm rounded-2">+</button>
+                    Repuesto 1 <button type="button" class="btn btn-danger btn-sm rounded-2">-</button>&nbsp<button type="button" class="btn btn-success btn-sm rounded-2">+</button>
                   </div>
-                  <button type="button" class="btn btn-primary btn-sm rounded-2"><i class="bi bi-search"></i></button>
+                  <button type="button" class="btn btn-primary btn-sm rounded-2">Buscar</button>
                 </td>
                 
               </tr>
@@ -177,6 +177,50 @@
             <button id="btnGuardar" class="btn btn-sm rounded-4">Guardar</button>
           </div>
         </div>
+
+
+        <!-- Factura -->
+        <div id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
+          <div class="d-flex justify-content-end container">
+            <button
+              id=""
+              type="button"
+              class="btn btn-danger btn-sm mt-3 mr-3 rounded-5"
+            >
+              Logout
+            </button>
+          </div>
+          <h3 class="font-weight-bold text-center">Factura</h3>
+          <div
+            id="revisionesP"
+            class="container mt-2 mb-5 w-50-responsive border"
+          >
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Repuesto</td>
+                  <td>1 &nbsp<button type="button" class="btn btn-danger btn-sm rounded-2">-</button>&nbsp<button type="button" class="btn btn-success btn-sm rounded-2">+</button></td>
+                  <td>100</td>
+                </tr>
+              </tbody>
+              
+            </table>
+            
+          </div>
+          <p class="text-end fw-bold">Total = 100</p>
+          <div class="d-flex justify-content-center">
+            <button id="btnGuardar" class="btn btn-sm rounded-4">Guardar</button>
+          </div>
+          
+        </div>
+
     </section>
 
     
