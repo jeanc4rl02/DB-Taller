@@ -1,66 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DB</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <section id="app">
       <!-- Revisiones pendientes -->
-        <div id="revisiones" class="container mt-5 mb-5  w-50-responsive border" >
-          <div class="d-flex justify-content-end container">
-            <button id="" type="button" class="btn btn-danger btn-sm mt-3 mr-3 rounded-5">Logout</button>
-          </div>
-          <h3 class="font-weight-bold text-center">Revisiones Pendientes</h3>
-          <div id="revisionesP" class="container mt-2 mb-5  w-50-responsive border">
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Vehiculo</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>AAAA/MM/DD</td>
-                  <td>Marca Modelo Placa</td>
-                  <td>Revisar</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div v-if="isPendingRevisionsScreen" id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
+        <div class="d-flex justify-content-end container">
+          <button
+            id=""
+            type="button"
+            class="btn btn-danger btn-sm mt-3 mr-3 rounded-5"
+          >
+            Logout
+          </button>
         </div>
-        <!-- Revision -->
-        <div id="revisiones" class="container mt-5 mb-5  w-50-responsive border" >
-          <div class="d-flex justify-content-end container">
-            <button id="" type="button" class="btn btn-danger btn-sm mt-3 mr-3 rounded-5">Logout</button>
-          </div>
-          <h3 class="font-weight-bold text-center">Revision</h3>
+        <h3 class="font-weight-bold text-center">Revisiones Pendientes</h3>
+        <div
+          id="revisionesP"
+          class="container mt-2 mb-5 w-50-responsive border"
+        >
           <table class="table table-borderless">
             <thead>
               <tr>
                 <th>Fecha</th>
                 <th>Vehiculo</th>
                 <th>Estado</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>AAAA/MM/DD</td>
-                <td>Marca Modelo Placa</td>
-                <td>Revisar</td>
+              <tr v-for="car in carsEntries">
+                <td>{{ car.entryDate }}</td>
+                <td>{{ car.brand }}, {{ car.model }}, {{ car.plate }}</td>
+                <td>{{ car.state }}</td>
+                <td>
+                  <button @click="findCarToChange(car)">See</button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-    </section>
- 
+      </div>
+      <!-- Revision -->
+      <div v-if="isRevisionScreen" id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
+        <div class="d-flex justify-content-end container">
+          <button
+            id=""
+            type="button"
+            class="btn btn-danger btn-sm mt-3 mr-3 rounded-5"
+          >
+            Logout
+          </button>
+        </div>
+        <h3 class="font-weight-bold text-center">Revision</h3>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Vehiculo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{carToChange.entryDate}}</td>
+              <td>{{ carToChange.brand }}, {{ carToChange.model }}, {{ carToChange.plate }}</td>
+              <td>{{ carToChange.state }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div>
+          <div>
+            <h4>Failures</h4>
+            <input v-model="failureInput" />
+            <button @click="addFailure">Add failure</button>
     
-</body>
+            <div v-for="fail in failures">
+              {{ fail }}
+            </div>
+          </div>
+    
+          <div>
+            <h4>Parts to use</h4>
+            <form>
+              <input v-model="partInput" />
+            <input
+              placeholder="cantidad"
+              type="number"
+              v-model="partQuantityInput"
+            />
+            </form>
+            
+            <button @click="addPart">Add part</button>
+    
+            <div v-for="part in usedParts">
+              {{ part }}
+            </div>
+          </div>
+          <h4>Vehiculo reparado:</h4>
+          <input type="checkbox" v-model="isRepaired" />
+    
+          <button @click="finishRevision">Save</button>
+    
+        </div>
+      </div>
+      <!-- To final check -->
+      <div v-if="isPreDeliverCheckScreen" class="container mt-5 mb-5 w-50-responsive border">
+        <h1>Chequeo pre-entrega</h1>
+        <form>
+          <div v-for="check in checkups">
+            <input type="checkbox" v-model="check.done">{{check.name}}</input>
+          </div>
+
+        </form>
+       <button @click="finishCheckup">Terminar chequeo</button>
+      </div>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
 </html>
