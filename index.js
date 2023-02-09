@@ -18,6 +18,15 @@ const app = Vue.createApp({
         { name: 'Fumes', done: true },
         { name: 'Mirrors', done: true }
       ],
+      status: [
+        'To revise',
+        'In revision',
+        'Under repair',
+        'Repaired',
+        'To final check',
+        'In checking',
+        'To deliver'
+      ],
       carsEntries: [
         {
           entryDate: '01/01/2023',
@@ -76,15 +85,7 @@ const app = Vue.createApp({
         { fullName: 'Luis Sanchez', phone: '3028964132' },
         { fullName: 'martha perez', phone: '3147852032' }
       ],
-      status: [
-        'To revise',
-        'In revision',
-        'Under repair',
-        'Repaired',
-        'To final check',
-        'In checking',
-        'To deliver'
-      ],
+
       failures: [],
       usedParts: [],
       selectedCar: 'ggg-555',
@@ -103,16 +104,9 @@ const app = Vue.createApp({
   },
 
   methods: {
-    openFactura () {
-      (this.isPendingRevisionsScreen = false),
-        (this.isRevisionScreen = false),
-        (this.isPartsScreen = false),
-        (this.isPreDeliverCheckScreen = false),
-        (this.isFactura = true)
-    },
     onLoadPage () {
       this.isPendingRevisionsScreen = true
-      this.isFactura = true
+
       if (
         //carsEntries:
         localStorage.getItem('carsEntries') === null ||
@@ -195,6 +189,7 @@ const app = Vue.createApp({
         case 'In checking':
           this.isPendingRevisionsScreen = false
           this.isPreDeliverCheckScreen = true
+          break
         case 'To deliver':
           alert(
             `This car is ready to deliver. The deliver date is: ${this.carToChange.deliveryDate}`
@@ -227,12 +222,12 @@ const app = Vue.createApp({
       console.log('FAILURES', this.failures)
 
       const updatedCarFails = this.failures.filter(car => {
-        return car.car===plate && car.failure===toQuit? null:car 
+        return car.car === plate && car.failure === toQuit ? null : car
       })
       console.log('updatedCarFails', updatedCarFails)
 
-      this.failures=updatedCarFails
-      this.updateLocalStorage('failures',this.failures)
+      this.failures = updatedCarFails
+      this.updateLocalStorage('failures', this.failures)
     },
     addPart () {
       if (
@@ -264,14 +259,26 @@ const app = Vue.createApp({
         alert(
           'The vehicle has not been repaired. The changes will be saved to future repairings'
         )
-        this.isPendingRevisionsScreen=true,
-        this.isRevisionScreen= false
-      } else{
-        alert('The vehicle has been repaired.')
-        this.carToChange.state = 'To final check'
-        Object.assign(this.carsEntries, this.carToChange)
-        this.updateLocalStorage('carsEntries', this.carsEntries)
-        console.log('ESTADO', this.carToChange)
+        ;(this.isPendingRevisionsScreen = true), (this.isRevisionScreen = false)
+      } else {
+        const isFailAdded = this.failures.some(
+          fail => fail.car === this.carToChange.plate
+        )
+
+        console.log("isFailAdded",isFailAdded)
+        if(isFailAdded){
+          this.carToChange.state = 'To final check'
+          Object.assign(this.carsEntries, this.carToChange)
+          this.updateLocalStorage('carsEntries', this.carsEntries)
+          console.log('ESTADO', this.carToChange)
+          alert('The vehicle has been repaired.')
+          this.isRevisionScreen=false
+          this.isPendingRevisionsScreen=true
+        } else{
+          alert('Please insert the vehicles failures before complete the reparation')
+        }
+
+       
       }
     },
     finishCheckup () {
@@ -279,10 +286,9 @@ const app = Vue.createApp({
 
       if (isFalse) {
         alert(
-          'SOme checkups are not done yet. Please complete all the checkups to finish'
+          'Some checkups are not done yet. Please complete all the checkups to finish'
         )
       } else {
-        alert('car ready to deliver')
         this.carToChange.deliveryDate = new Date()
         console.log(
           'this.carToChange.deliveryDate',
@@ -294,6 +300,9 @@ const app = Vue.createApp({
 
         console.log(this.carToChange.deliveryDate)
         console.log(this.carToChange)
+        alert(`Car ready to deliver in ${this.carToChange.deliveryDate}`)
+        this.isPreDeliverCheckScreen = false
+        this.isPendingRevisionsScreen = true
       }
     }
   },

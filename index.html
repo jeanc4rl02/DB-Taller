@@ -37,15 +37,9 @@
         id="revisiones"
         class="container mt-5 mb-5 w-50-responsive border"
       >
-      <button @click="openFactura">Factura</button>
+     
         <div class="d-flex justify-content-end container">
-          <button
-            id=""
-            type="button"
-            class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
-          >
-            Go Back
-          </button>
+         
           <button
             id=""
             type="button"
@@ -92,7 +86,7 @@
             id=""
             type="button"
             class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
-            @click=""
+            @click="isPendingRevisionsScreen=true;isRevisionScreen= false"
           >
             Go Back
           </button>
@@ -238,6 +232,7 @@
             id=""
             type="button"
             class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
+            @click="isPreDeliverCheckScreen=false;isPendingRevisionsScreen=true"
           >
             Go Back
           </button>
@@ -248,7 +243,7 @@
             Logout
           </button>
         </div>
-        <h3 class="font-weight-bold text-center">Revision</h3>
+        <h3 class="font-weight-bold text-center">Check</h3>
 
         <table class="table table-borderless">
           <thead>
@@ -260,14 +255,48 @@
           </thead>
           <tbody>
             <tr>
-              <td><input type="text" class="form-control rounded-5" /></td>
-              <td><input type="text" class="form-control rounded-5" /></td>
-              <td><input type="text" class="form-control rounded-5" /></td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control rounded-5"
+                  :value="carToChange.plate"
+                  readonly="readonly"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control rounded-5"
+                  :value="carToChange.brand"
+                  readonly="readonly"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control rounded-5"
+                  :value="carToChange.model"
+                  readonly="readonly"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
         <div class="d-flex justify-content-center">
-          <table class="table table-borderless">
+
+          <div v-for="check in checkups">
+            <input type="checkbox" v-model="check.done">{{check.name}}</input>
+          </div>
+          <button
+          id=""
+          type="button"
+          class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
+          @click="finishCheckup"
+        >
+         Save
+        </button>
+
+          <!-- <table class="table table-borderless">
             <thead>
               <tr>
                 <th class="text-center">
@@ -288,10 +317,10 @@
                 </th>
               </tr>
             </tbody>
-          </table>
+          </table> -->
         </div>
 
-
+</div>
         <!-- Factura -->
         <div v-if="isFactura" id="revisiones" class="container mt-5 mb-5 w-50-responsive border">
           <div class="d-flex justify-content-end container">
