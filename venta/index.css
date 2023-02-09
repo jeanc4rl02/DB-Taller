@@ -9,4 +9,47 @@ body{
 
 .container{
     background-color: #D0D0D0;
+    border-radius: 25px;
+}
+
+.contenedor{
+    padding-top: 2%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+    gap: 10px;
+    
+}
+
+.logout{ 
+    text-align: right;   
+}
+
+.boton-logout{
+    border-radius: 25px;
+    padding: 5px;
+    background-color: #FB5151;
+    border-color: #FB5151;
+    color: white;
+}
+
+.titulo{
+    text-align: center; 
+}
+
+.inpu{ 
+    grid-row-start: span 3;  
+}
+
+.catalogo-container{
+    background-color: yellow;
+    grid-row-start: span 4; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.prod{
+    background-color: #D9D9D9 ;
+    border-radius: 25px;
+    width: 150px;
+    height: 150px;
 }
