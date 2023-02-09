@@ -93,8 +93,10 @@ const app = Vue.createApp({
       partQuantityInput: null,
       carToChange: null,
       isRepaired: null,
+      //Screens:
       isPendingRevisionsScreen: false,
       isRevisionScreen: false,
+      isPartsScreen: false,
       isPreDeliverCheckScreen: false
     }
   },
@@ -208,6 +210,22 @@ const app = Vue.createApp({
         console.log(this.failures, 'failures')
         this.failureInput = ''
       }
+    },
+    quitFailure (fail, plate) {
+      const toQuit = fail
+      console.log('quit', toQuit)
+      console.log('FAILURES', this.failures)
+
+      const currentCarFails = this.failures.filter(fail => {
+        return fail.car == plate
+      })
+      console.log('currentCarFails', currentCarFails)
+
+      let result = currentCarFails.filter(fail => {
+        return fail.failure !== toQuit
+      })
+
+      console.log('result', result)
     },
     addPart () {
       if (
