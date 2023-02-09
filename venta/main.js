@@ -6,7 +6,53 @@ const app = new Vue({
       factura: [],
     },
     methods:{
-     
+     agregar(id){
+        let rep = false
+        if(  this.repuestos[id].cantidad > 0){
+
+            this.factura.map( producto => {
+                if(producto.id === id){
+                    rep = true
+                    producto.cantidad++
+                    this.repuestos[id].cantidad-- 
+                }
+            })
+             
+            if(rep === false){
+                this.repuestos[id].cantidad-- 
+                this.factura.push(
+                    {
+                        "id": this.repuestos[id].id,
+                        "nombre": this.repuestos[id].nombre,
+                        "valor": this.repuestos[id].valor,
+                        "cantidad": 1
+                    }
+                ) 
+            }
+
+        }else{
+            alert("El producto ya no tienen stock disponible")
+        }
+     },
+
+     aumentar(id, index){
+        if(  this.repuestos[id].cantidad > 0){ 
+            this.factura[index].cantidad++
+            this.repuestos[id].cantidad--
+        }else{
+            alert("El producto ya no tienen stock disponible")
+        }
+     },
+
+     restar(id,index){
+        if(  this.factura[index].cantidad > 0){ 
+            if(this.factura[index].cantidad === 1){
+                this.factura.pop(index)
+            }
+            this.factura[index].cantidad--
+            this.repuestos[id].cantidad++
+        } 
+     }
         
     },
     created(){

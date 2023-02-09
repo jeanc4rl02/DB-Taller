@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <button class="plus" > + </button> 
+                                <button class="plus" @clicK="agregar(repuesto.id)"> + </button> 
                             </div> 
                         </div> 
                     </div> 
@@ -77,21 +77,38 @@
                                 <th scope="col">Precio</th>
                             </tr>
                          </thead>
-                         <tbody>
+                         <tbody v-if="factura === []"> 
                             <tr>
-                              <th scope="row">1</th>
-                              <td>repuesto</td>
-                              <td>
+                                <th scope="row"> </th>
+                                <td> </td>
+                                <td>
+                                    <div class="row align-self-center align-self-center">
+                                        <div class="col px-0  text-center  ">
+                                        0
+                                        </div>
+                                    </div>
+                                </td>
+                                <td> $ 0 usd</td>
+                                </tr >                     
+                         </tbody>
+                         <tbody v-else>
+                                     
+                            <tr v-for="(item, index) of factura">
+                                <th scope="row">{{index}}</th>
+                                <td>{{item.nombre}}</td>
+                                <td>
                                 <div class="row align-self-center align-self-center">
-                                    <div class="col px-0  text-center  ">1</div>
+                                    <div class="col px-0  text-center  ">
+                                        {{item.cantidad}} und
+                                    </div>
                                     <div class="col px-0 t">
-                                        <button class="btn btn-danger "> - </button>
-                                        <button class="btn btn-success"> + </button>
+                                        <button class="btn btn-success" @click="aumentar(item.id, index)"> + </button>
+                                        <button class="btn btn-danger "  @click="restar(item.id, index)"> - </button>
                                     </div>
                                 </div>
-                              </td>
-                              <td> $ 00 usd</td>
-                            </tr>
+                                </td>
+                                <td> $ {{item.valor}} usd</td>
+                            </tr> 
                          </tbody>
                     
                     </table>
