@@ -21,36 +21,7 @@ new Vue({
         phone: 312838,
       }
     ],
-    vehicles:[
-      {
-        id: 1001,
-        plate: "FUN-212",
-        brand: "Nissan",
-        model: 2021,
-        entry: ""
-      },
-      {
-        id: 1002,
-        plate: "RAR-212",
-        brand: "Kia",
-        model: 2015,
-        entry: ""
-      },
-      {
-        id: 1003,
-        plate: "SUN-212",
-        brand: "BMW",
-        model: 2023,
-        entry: ""
-      },
-      {
-        id: 1003,
-        plate: "RUN-212",
-        brand: "Audi",
-        model: 2023,
-        entry: ""
-      }
-    ],
+    vehicles:JSON.parse(localStorage.getItem("vehicles")),
     clientEntered: "",
     nameEntered: "",
     makeEntered: "",
@@ -60,6 +31,16 @@ new Vue({
     selectedVehicle: null,
     description: "",
     newEntry: null,
+    newVehicle: null,
+    showModal: false,
+    modalId: "",
+    modalPlate: "",
+    modalBrand: "",
+    modalModel: null,
+    error: false,
+    errorVehicle: false,
+    errorEntry: false,
+    errorClient: false
   }, 
   methods: {
     findClient(){
@@ -80,7 +61,8 @@ new Vue({
       console.log(car);
     },
     generateEntry(){
-      this.newEntry = [];
+      if(this.clientEntered != null && this.nameEntered != null && this.selectedVehicle != null && this.dateEntered != null && this.description != null){
+        this.newEntry = [];
       this.newEntry = JSON.parse(localStorage.getItem("entrys")) || []
       this.newEntry.push({
         idClient: this.clientEntered,
@@ -91,6 +73,31 @@ new Vue({
       })
       window.location.reload();
     localStorage.setItem("entrys", JSON.stringify(this.newEntry));
-    }
+      } else {
+        this.errorEntry = true;
+      }
+      
+    },
+    generateNewVehicle(){
+      if(this.modalId != null && this.modalPlate != null && this.modalBrand != null && this.modalModel != null){
+        this.newVehicle = [];
+        this.newVehicle = JSON.parse(localStorage.getItem("vehicles")) || []
+        this.newVehicle.push({
+          id: this.modalId,
+          plate: this.modalPlate,
+          brand: this.modalBrand,
+          model: this.modalModel,
+      })
+      window.location.reload();
+    localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
+      } else {
+        this.errorVehicle = true;
+      }
+    },
+    logout() {
+      localStorage.removeItem("rol");
+      localStorage.removeItem("name");
+      window.location = "./index.html";
+    },
   }
 });

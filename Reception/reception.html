@@ -23,8 +23,41 @@
   </head>
   <body>
     <div id="app">
+      
+      <div v-if="showModal"> 
+        <div class="modal-mask" >
+            <div class="modal-wrapper">
+                <div class="modal-content">
+                  <div class="d-flex flex-row-reverse bd-highlight" style="margin-left: 250px;">
+                    
+                    <button type="button" class="btn btn-danger d-flex border border-1" style="width: 35px; margin-bottom: -10px;" @click="showModal=false">X</button>
+                    </div>
+                    <div class="form-body">
+                      <h2 class="modal-title ">Registro vehículo</h2>
+                      <label for="document">Identificación Cliente:</label>
+                      <input class="form-control mb-3" type="number" id="document" placeholder="Ingrese el documento" v-model="modalId">
+                      <label for="plate">Placa:</label>
+                      <input class="form-control mb-3" type="text" id="plate" placeholder="Ingrese la placa" v-model="modalPlate">
+                      <label for="complete-name">Marca:</label>
+                      <input class="form-control mb-3" type="text" id="complete-name" placeholder="Ingrese la marca"
+                      v-model="modalBrand">
+                      <label for="model">Modelo:</label>
+                      <input class="form-control mb-3" type="number" id="model" placeholder="Ingrese el modelo"
+                      v-model="modalModel">
+                      <div class="text-center">
+                        <input class="first-form-btn" type="submit" value="Registrar Vehículo" @click="generateNewVehicle"/>
+                      </div><li v-if="errorVehicle" style="color:brown;">Rellene todos los campos.</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
       <div class="abs-center">
       <div class="card" style="width: 50rem; height: 40rem">
+        <li v-if="errorEntry" style="color:brown;">Asegúrese de que los campos estén correctamente diligenciados.</li>
+        <div class="d-flex flex-row-reverse bd-highlight">
+          <button type="button" class="btn btn-danger d-flex border border-1" style="width: 75px; margin-bottom: -10px;" @click="logout">Logout</button>
+        </div>
         <h1 class="text-center">
           Registro de ingresos<i class="fa fa-search" aria-hidden="true"></i>
         </h1>
@@ -58,7 +91,7 @@
                   <option selected>Seleccione un automovil</option>
                   <option v-for="(car, index) in carsFound" v-bind:value=car.plate>{{car.plate}}</option>
                 </select>
-                <button type="button" class="btn btn-success">
+                <button type="button" class="btn btn-success" @click.prevent="showModal=true">
                   <i class="bi bi-plus"></i>
                 </button>
               </div>
@@ -122,6 +155,7 @@
             </div>
           </div>
         </form>
+        
         <div class="text-center">
           <input class="first-form-btn" type="submit" value="Generar Ingreso" @click.prevent="generateEntry"/>
         </div>

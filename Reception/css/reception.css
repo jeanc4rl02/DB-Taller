@@ -1,0 +1,77 @@
+body {
+  background-color: #393E46;
+}
+
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.card {
+  padding: 40px;
+  background-color: #EEEEEE;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+form div {
+  margin: 5px 0px;
+}
+
+label {
+  font-weight: 600;
+}
+
+.first-form-btn {
+  color: #EEEEEE;
+  background-color: #FA6C17;
+  width: 150px;
+  border-radius: 10px;
+  height: 45px;
+  border: none;
+  font-weight: 600;
+}
+
+.first-form-btn:hover {
+  background-color: #f79257;
+  transition: .2s;
+  transform: scale(1.1);
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+}
+
+.modal-content {
+  background-color: white;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+}
