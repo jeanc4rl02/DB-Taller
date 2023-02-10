@@ -288,7 +288,11 @@ const app = Vue.createApp({
           Object.assign(this.carsEntries, this.carToChange)
           this.updateLocalStorage('carsEntries', this.carsEntries)
           console.log('ESTADO', this.carToChange)
-          alert('El vehículo ha sido reparado')
+          // alert('El vehículo ha sido reparado')
+          Swal.fire({
+            icon: 'success',
+            title: '¡El vehículo ha sido reparado!'
+          })
           this.isRevisionScreen = false
           this.isPendingRevisionsScreen = true
         } else {
