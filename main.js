@@ -40,23 +40,47 @@ let vm = new Vue({
         let client = this.users.filter((u) => u.user == this.userEntered);
         localStorage.setItem("name", this.userEntered);
         localStorage.setItem("rol", client[0].rol);
-        console.log(localStorage.getItem("arol"));
+        console.log(localStorage.getItem("rol"));
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Inicio sesión',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.error = false;
 
        switch(this.userEntered){
         case 'mecanico':
-          window.location = "./Mecanico/index.html";
+          setTimeout(function() {
+            window.location = "./Mecanico/index.html";
+          }, 2000);
+          // window.location = "./Mecanico/index.html";
         break
         case 'admin':
-          window.location = "";
+          setTimeout(function() {
+            window.location = "";
+          }, 2000);
+          // window.location = "";
         break
         case 'vendedor':
-          window.location = "./venta/index.html";
+          setTimeout(function() {
+            window.location = "./venta/index.html";
+          }, 2000);
+          // window.location = "./venta/index.html";
         break
        }
         
       } else {
         this.error = true;
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Inicio sesión fallido',
+          text: 'Revise sus credenciales de ingreso',
+          showConfirmButton: false,
+          timer: 2500
+        })
       }
     },
   },
