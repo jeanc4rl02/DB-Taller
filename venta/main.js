@@ -92,6 +92,7 @@ const app = new Vue({
             this.detalle = []
             this.total = 0
             localStorage.setItem('detalle', JSON.stringify(this.detalle))
+            localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
             alert("Venta completada exitosamente")
         }else{
             alert("Campo de cliente o factura vacia")
@@ -100,9 +101,6 @@ const app = new Vue({
     }
 
     
-        
-    },
-    created(){
         
     },
     created(){
@@ -196,6 +194,8 @@ const app = new Vue({
         }else{
             this.repuestos = catalogo;
         }
+
+        this.calcular()
     },
     computed:{
         

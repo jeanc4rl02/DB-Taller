@@ -67,8 +67,10 @@
                 <td>{{ car.entryDate }}</td>
                 <td>{{ car.brand }}, {{ car.model }}, {{ car.plate }}</td>
                 <td>{{ car.state }}</td>
-                <td>
-                  <button class="btn btn-info" @click="findCarToChange(car)">Ver</button>
+                <td class="text-center">
+                  <button v-if="car.state === 'Para entrega'" class="btn btn-success" @click="facturar(car) ">Facturar</button>
+                  <button  v-else class="btn btn-info" @click="findCarToChange(car)">Ver</button>
+                  
                 </td>
               </tr>
             </tbody>
