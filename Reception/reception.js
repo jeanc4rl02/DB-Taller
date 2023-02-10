@@ -1,26 +1,7 @@
 new Vue({
   el: "#app",
   data: {
-    clients:[
-      { 
-        id: 1001,
-        name: "Juan",
-        lastname: "Pérez",
-        phone: 312836,
-      },
-      { 
-        id: 1003,
-        name: "Maria",
-        lastname: "Pérez",
-        phone: 312837,
-      },
-      { 
-        id: 1002,
-        name: "Astrid",
-        lastname: "Pérez",
-        phone: 312838,
-      }
-    ],
+    clients:JSON.parse(localStorage.getItem("clients")),
     vehicles:JSON.parse(localStorage.getItem("vehicles")),
     clientEntered: "",
     nameEntered: "",
@@ -29,10 +10,11 @@ new Vue({
     carsFound: null,
     carSelected: null,
     selectedVehicle: null,
-    description: "",
+    description: null,
     newEntry: null,
     newVehicle: null,
     showModal: false,
+    showModal1: false,
     modalId: "",
     modalPlate: "",
     modalBrand: "",
@@ -40,14 +22,23 @@ new Vue({
     error: false,
     errorVehicle: false,
     errorEntry: false,
-    errorClient: false
+    errorClient: false,
+    errorModalClient: false,
+    inputId: null,
+    inputName: null,
+    inputLastName: null,
+    inputPhone: null,
   }, 
   methods: {
     findClient(){
-      let person = this.clients.filter(c => c.id == this.clientEntered);
-      let vehicle = this.vehicles.filter(v => v.id == this.clientEntered);
-      this.nameEntered = person[0].name;
-      this.carsFound = vehicle;
+        let person = this.clients.filter(c => c.id == this.clientEntered);
+        this.nameEntered = person[0].name;
+      
+      if(this.vehicles != null){
+        const vehicle = this.vehicles.filter(v => v.id == this.clientEntered);
+        this.carsFound = vehicle;
+      }
+      
       console.log(this.carsFound);
     },
     findVehicle(){
@@ -92,6 +83,22 @@ new Vue({
     localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
       } else {
         this.errorVehicle = true;
+      }
+    },
+    generateNewClient(){
+      if(this.inputId != null && this.inputName != null && this.inputLastName != null && this.inputPhone != null){
+        this.clients = [];
+        this.clients = JSON.parse(localStorage.getItem("clients")) || []
+        this.clients.push({
+          id: this.inputId,
+          name: this.inputName,
+          lastname: this.inputLastName,
+          phone: this.inputPhone,
+      })
+      window.location.reload();
+    localStorage.setItem("clients", JSON.stringify(this.clients));
+      } else {
+        this.errorModalClient = true;
       }
     },
     logout() {

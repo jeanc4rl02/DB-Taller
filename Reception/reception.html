@@ -23,7 +23,34 @@
   </head>
   <body>
     <div id="app">
-      
+      <div v-if="showModal1"> 
+        <div class="modal-mask" >
+            <div class="modal-wrapper">
+                <div class="modal-content">
+                  <div class="d-flex flex-row-reverse bd-highlight" style="margin-left: 250px;">
+                    
+                    <button type="button" class="btn btn-danger d-flex border border-1" style="width: 35px; margin-bottom: -10px;" @click="showModal1=false">X</button>
+                    </div>
+                    <div class="form-body">
+                      <h2 class="modal-title ">Registro cliente</h2>
+                      <label for="documentClient">Identificación Cliente:</label>
+                      <input class="form-control mb-3" type="number" id="documentClient" placeholder="Ingrese el documento" v-model="inputId">
+                      <label for="plate">Nombre(s):</label>
+                      <input class="form-control mb-3" type="text" id="plate" placeholder="Ingrese nombre(s)" v-model="inputName">
+                      <label for="complete-name">Apellido(s):</label>
+                      <input class="form-control mb-3" type="text" id="complete-name" placeholder="Ingrese apellido(s)"
+                      v-model="inputLastName">
+                      <label for="model">Teléfono:</label>
+                      <input class="form-control mb-3" type="number" id="model" placeholder="Ingrese teléfono"
+                      v-model="inputPhone">
+                      <div class="text-center">
+                        <input class="first-form-btn" type="submit" value="Registrar Cliente" @click="generateNewClient"/>
+                      </div><li v-if="errorModalClient" style="color:brown;">Rellene todos los campos.</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
       <div v-if="showModal"> 
         <div class="modal-mask" >
             <div class="modal-wrapper">
@@ -78,7 +105,7 @@
                 <button type="button" class="btn btn-primary" @click.prevent="findClient">
                   <i class="bi bi-search"></i>
                 </button>
-                <button type="button" class="btn btn-success">
+                <button type="button" class="btn btn-success" @click.prevent="showModal1 = true">
                   <i class="bi bi-plus"></i>
                 </button>
               </div>
