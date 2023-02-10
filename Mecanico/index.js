@@ -206,9 +206,14 @@ const app = Vue.createApp({
           this.isPreDeliverCheckScreen = true
           break
         case 'Para entrega':
-          alert(
-            `Este vehículo está listo para entrega. La fecha de entrega es: ${this.carToChange.deliveryDate}`
-          )
+          // alert(
+          //   `Este vehículo está listo para entrega. La fecha de entrega es: ${this.carToChange.deliveryDate}`
+          // )
+          Swal.fire({
+            icon: 'success',
+            title: '¡Este vehículo está listo para entrega!',
+            text: `La fecha de entrega es: ${this.carToChange.deliveryDate}`,
+          })
           break
       }
     },
@@ -271,9 +276,14 @@ const app = Vue.createApp({
         this.isRepaired === null ||
         this.isRepaired === undefined
       ) {
-        alert(
-          'El vehículo no ha sido reparado. Los cambios serán guardados para próximas reparaciones'
-        )
+        // alert(
+        //   'El vehículo no ha sido reparado. Los cambios serán guardados para próximas reparaciones'
+        // )
+        Swal.fire({
+          icon: 'warning',
+          title: '¡El vehículo no ha sido reparado!',
+          text: 'Los cambios serán guardados para próximas reparaciones',
+        })
         ;(this.isPendingRevisionsScreen = true), (this.isRevisionScreen = false)
       } else {
         const isFailAdded = this.failures.some(
@@ -303,13 +313,22 @@ const app = Vue.createApp({
           Object.assign(this.carsEntries, this.carToChange) 
           this.updateLocalStorage('carsEntries', this.carsEntries)
           console.log('ESTADO', this.carToChange)
-          alert('El vehículo ha sido reparado')
+          // alert('El vehículo ha sido reparado')
+          Swal.fire({
+            icon: 'success',
+            title: '¡El vehículo ha sido reparado!'
+          })
           this.isRevisionScreen = false
           this.isPendingRevisionsScreen = true
         } else {
-          alert(
-            'Por favor inserte las fallas del vehículo antes de terminar la reparación'
-          )
+          // alert(
+          //   'Por favor inserte las fallas del vehículo antes de terminar la reparación'
+          // )
+          Swal.fire({
+            icon: 'warning',
+            title: '¡Inserte fallas!',
+            text: 'Por favor inserte las fallas del vehículo antes de terminar la reparación',
+          })
         }
       }
     },
@@ -317,9 +336,14 @@ const app = Vue.createApp({
       const isFalse = this.checkups.some(checkup => checkup.done === false)
 
       if (isFalse) {
-        alert(
-          'Alguno chequeos no se han realizado todavía. Por favor complete todos los chequeos para finalizar'
-        )
+        // alert(
+        //   'Alguno chequeos no se han realizado todavía. Por favor complete todos los chequeos para finalizar'
+        // )
+        Swal.fire({
+          icon: 'error',
+          title: '¡Alguno chequeos no se han realizado todavía!',
+          text: 'Por favor complete todos los chequeos para finalizar',
+        })
       } else {
         this.carToChange.deliveryDate = new Date()
         console.log(
@@ -332,7 +356,12 @@ const app = Vue.createApp({
         this.updateLocalStorage('carsEntries', this.carsEntries)
         console.log(this.carToChange.deliveryDate)
         console.log(this.carToChange)
-        alert(`Vehículo listo para entrega el ${this.carToChange.deliveryDate}. Por favor continue a facturación`)
+        // alert(`Vehículo listo para entrega el ${this.carToChange.deliveryDate}. Por favor continue a facturación`)
+        Swal.fire({
+          icon: 'success',
+          title: `Vehículo listo para entrega el ${this.carToChange.deliveryDate}`,
+          text: 'Por favor continue a facturación',
+        })
         this.isPreDeliverCheckScreen = false
         this.isPendingRevisionsScreen = true
       }
