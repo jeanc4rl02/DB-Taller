@@ -33,6 +33,36 @@ body{
     border-color: #FB5151;
     color: white;
     font-size: 24px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.boton-back{
+    border-radius: 25px;
+    width: 103px;
+    height: 49px;
+    background-color: #FA6C17;
+    border-color:  #FA6C17;;
+    color: white;
+    font-size: 24px;
+    padding: 5px; 
+    text-decoration: none;
+}
+
+.boton-back:hover{
+    background-color: #e66114;
+    border-color:  #e66114;;
+}
+
+.boton-logout:hover{
+    background-color: #e04848;
+    border-color:  #e04848;;
+}
+
+
+.logout > a{
+    color: white; 
+    text-decoration: none;
 }
 
 .titulo{
@@ -158,4 +188,8 @@ h2{
     cursor: pointer;
 }
 
+.guardar:hover{
+    background-color: #e96215;
+    border-color:  #e96215;;
+}
  

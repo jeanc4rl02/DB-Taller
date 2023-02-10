@@ -137,7 +137,7 @@ const app = new Vue({
                 },
                 {
                     "id": 1,
-                    "nombre": "Bujias",
+                    "nombre": "Bujías",
                     "valor": 50,
                     "imagen": "https://cdn-images.motor.es/image/m/694w/fotos-diccionario/2019/11/bujia-tipos-averias-mantenimiento_1573747483.jpg",
                     "cantidad": 60
@@ -165,7 +165,7 @@ const app = new Vue({
                 },
                 {
                     "id": 5,
-                    "nombre": "Bateria",
+                    "nombre": "Batería",
                     "valor": 70,
                     "imagen": "https://unibaterias.com.co/wp-content/uploads/2018/09/171-Bateria-para-carro-MAC-GOLD-PLUS-42IST-900MG.jpg",
                     "cantidad": 200
@@ -186,7 +186,7 @@ const app = new Vue({
                 },
                 {
                     "id": 8,
-                    "nombre": "Neumaticos",
+                    "nombre": "Neumáticos",
                     "valor": 300,
                     "imagen": "https://www.eluniverso.com/resizer/EmU7BmQQfCE9-HX7HCdtBgqeA9w=/740x670/smart/filters:quality(70)/cloudfront-us-east-1.images.arcpublishing.com/eluniverso/6OMBHHVNTVBWFO7DVPEXZZY4RA.jpg",
                     "cantidad": 200
