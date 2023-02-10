@@ -33,9 +33,12 @@ new Vue({
   }, 
   methods: {
     findClient(){
-        let person = this.clients.filter(c => c.id == this.clientEntered);
+      if(this.clients){
+        const person = this.clients.filter(c => c.id == this.clientEntered);
         this.nameEntered = person[0].name;
-      
+      } else {
+        this.error = true;
+      }
       if(this.vehicles != null){
         const vehicle = this.vehicles.filter(v => v.id == this.clientEntered);
         this.carsFound = vehicle;
