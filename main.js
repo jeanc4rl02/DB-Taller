@@ -14,14 +14,14 @@ let vm = new Vue({
         name: "María",
         lastname: "Pérez",
         user: "mecanico",
-        password: "admin123",
+        password: "a",
       },
       {
         rol: "Vendedor",
         name: "Cristina",
         lastname: "Gómez",
         user: "vendedor",
-        password: "admin123",
+        password: "v",
       },
     ],
     userEntered: "",
@@ -31,6 +31,7 @@ let vm = new Vue({
   methods: {
     verifyUser() {
       const userValidation = this.users.find((u) => u.user == this.userEntered);
+      console.log("USER",userValidation)
       const passwordValidation = this.users.find(
         (u) => u.password == this.passwordEntered
       );
@@ -41,7 +42,19 @@ let vm = new Vue({
         localStorage.setItem("rol", client[0].rol);
         console.log(localStorage.getItem("rol"));
         this.error = false;
-        window.location = "./.html";
+
+       switch(this.userEntered){
+        case 'mecanico':
+          window.location = "./Mecanico/index.html";
+        break
+        case 'admin':
+          window.location = "";
+        break
+        case 'vendedor':
+          window.location = "./venta/index.html";
+        break
+       }
+        
       } else {
         this.error = true;
       }
