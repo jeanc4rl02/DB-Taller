@@ -11,12 +11,12 @@ const app = Vue.createApp({
         { name: 'repuesto7', price: 700, quantity: 100 }
       ],
       checkups: [
-        { name: 'Tires', done: false },
-        { name: 'Lights', done: true },
-        { name: 'Brakes', done: true },
-        { name: 'Fluids', done: true },
-        { name: 'Fumes', done: true },
-        { name: 'Mirrors', done: true }
+        { name: 'Llantas', done: false },
+        { name: 'Luces', done: true },
+        { name: 'Frenos', done: true },
+        { name: 'Liquidos', done: true },
+        { name: 'Gases', done: true },
+        { name: 'Espejos', done: true }
       ],
       carsEntries: [
         {
@@ -26,7 +26,7 @@ const app = Vue.createApp({
           brand: 'mazda 323',
           model: 2001,
           plate: 'NRO-185',
-          state: 'To revise'
+          state: 'Sin revisar'
         },
         {
           entryDate: '01/04/2001',
@@ -35,7 +35,7 @@ const app = Vue.createApp({
           brand: 'subaru r12',
           model: 2011,
           plate: 'NSY-578',
-          state: 'To revise'
+          state: 'Sin revisar'
         },
         {
           entryDate: '01/08/2001',
@@ -44,7 +44,7 @@ const app = Vue.createApp({
           brand: 'bmw e21',
           model: 2012,
           plate: 'SIE-901',
-          state: 'To revise'
+          state: 'Sin revisar'
         },
         {
           entryDate: '01/11/2001',
@@ -53,7 +53,7 @@ const app = Vue.createApp({
           brand: 'renault sandero',
           model: 2022,
           plate: 'EPG-106',
-          state: 'To revise'
+          state: 'Sin revisar'
         },
         {
           entryDate: '01/11/2001',
@@ -62,7 +62,7 @@ const app = Vue.createApp({
           brand: 'Toyota MC12',
           model: 2019,
           plate: 'FGA-810',
-          state: 'To revise'
+          state: 'Sin revisar'
         }
       ],
       cars: [
@@ -171,9 +171,9 @@ const app = Vue.createApp({
     },
     changeCarState () {
       switch (this.carToChange.state) {
-        case 'To revise':
+        case 'Sin revisar':
           console.log('toy aca')
-          this.carToChange.state = 'In revision'
+          this.carToChange.state = 'En revisión'
 
           Object.assign(this.carsEntries, this.carToChange)
           this.updateLocalStorage('carsEntries', this.carsEntries)
@@ -181,25 +181,25 @@ const app = Vue.createApp({
           this.isRevisionScreen = true
           break
 
-        case 'In revision':
+        case 'En revisión':
           this.isPendingRevisionsScreen = false
           this.isRevisionScreen = true
           break
-        case 'To final check':
-          this.carToChange.state = 'In checking'
+        case 'Para chequeo':
+          this.carToChange.state = 'En chequeo'
           Object.assign(this.carsEntries, this.carToChange)
           this.updateLocalStorage('carsEntries', this.carsEntries)
           this.isPendingRevisionsScreen = false
           this.isPreDeliverCheckScreen = true
           break
 
-        case 'In checking':
+        case 'En chequeo':
           this.isPendingRevisionsScreen = false
           this.isPreDeliverCheckScreen = true
           break
-        case 'To deliver':
+        case 'Para entrega':
           alert(
-            `This car is ready to deliver. The deliver date is: ${this.carToChange.deliveryDate}`
+            `Este vehículo está listo para entrega. La fecha de entrega es: ${this.carToChange.deliveryDate}`
           )
           break
       }
@@ -264,7 +264,7 @@ const app = Vue.createApp({
         this.isRepaired === undefined
       ) {
         alert(
-          'The vehicle has not been repaired. The changes will be saved to future repairings'
+          'El vehículo no ha sido reparado. Los cambios serán guardados para próximas reparaciones'
         )
         ;(this.isPendingRevisionsScreen = true), (this.isRevisionScreen = false)
       } else {
@@ -274,16 +274,16 @@ const app = Vue.createApp({
 
         console.log('isFailAdded', isFailAdded)
         if (isFailAdded) {
-          this.carToChange.state = 'To final check'
+          this.carToChange.state = 'Para chequeo'
           Object.assign(this.carsEntries, this.carToChange)
           this.updateLocalStorage('carsEntries', this.carsEntries)
           console.log('ESTADO', this.carToChange)
-          alert('The vehicle has been repaired.')
+          alert('El vehículo ha sido reparado')
           this.isRevisionScreen = false
           this.isPendingRevisionsScreen = true
         } else {
           alert(
-            'Please insert the vehicles failures before complete the reparation'
+            'Por favor inserte las fallas del vehículo antes de terminar la reparación'
           )
         }
       }
@@ -293,7 +293,7 @@ const app = Vue.createApp({
 
       if (isFalse) {
         alert(
-          'Some checkups are not done yet. Please complete all the checkups to finish'
+          'Alguno chequeos no se han realizado todavía. Por favor complete todos los chequeos para finalizar'
         )
       } else {
         this.carToChange.deliveryDate = new Date()
@@ -301,13 +301,13 @@ const app = Vue.createApp({
           'this.carToChange.deliveryDate',
           this.carToChange.deliveryDate
         )
-        this.carToChange.state = 'To deliver'
+        this.carToChange.state = 'Para entrega'
 
         Object.assign(this.carsEntries, this.carToChange)
 
         console.log(this.carToChange.deliveryDate)
         console.log(this.carToChange)
-        alert(`Car ready to deliver in ${this.carToChange.deliveryDate}`)
+        alert(`Vehículo listo para entrega el ${this.carToChange.deliveryDate}. Por favor continue a facturación`)
         this.isPreDeliverCheckScreen = false
         this.isPendingRevisionsScreen = true
       }

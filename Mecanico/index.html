@@ -57,9 +57,9 @@
             <thead>
               <tr>
                 <th>Fecha</th>
-                <th>Vehiculo</th>
+                <th>Vehículo</th>
                 <th>Estado</th>
-                <th>Action</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -68,7 +68,7 @@
                 <td>{{ car.brand }}, {{ car.model }}, {{ car.plate }}</td>
                 <td>{{ car.state }}</td>
                 <td>
-                  <button class="btn btn-info" @click="findCarToChange(car)">See</button>
+                  <button class="btn btn-info" @click="findCarToChange(car)">Ver</button>
                 </td>
               </tr>
             </tbody>
@@ -88,7 +88,7 @@
             class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
             @click="isPendingRevisionsScreen=true;isRevisionScreen= false"
           >
-            Go Back
+            Volver
           </button>
           <button
             type="button"
@@ -196,9 +196,9 @@
           </table>
           
           <div>
-            <input v-model="isRepaired" type="checkbox">&nbsp&nbsp Car repaired</div>
+            <input v-model="isRepaired" type="checkbox">&nbsp&nbsp Vehículo reparado</div>
             <br>
-            <button class="btn btn-warning btn-sm rounded-2" @click="finishRevision" >Finish revision</button>
+            <button class="btn btn-warning btn-sm rounded-2" @click="finishRevision" >Terminar revisión</button>
             
           </div>
           <br>
@@ -245,7 +245,7 @@
             class="btn btn-warning btn-sm mt-3 mr-3 rounded-5"
             @click="isPreDeliverCheckScreen=false;isPendingRevisionsScreen=true"
           >
-            Go Back
+            Volver
           </button>
           <button
             type="button"
@@ -254,7 +254,7 @@
             Logout
           </button>
         </div>
-        <h3 class="font-weight-bold text-center">Check</h3>
+        <h3 class="font-weight-bold text-center">Chequeo pre-entrega</h3>
 
         <table class="table table-borderless">
           <thead>
@@ -332,7 +332,7 @@
           class="btn btn-warning btn-sm mt-3 mr-3 rounded-5 "
           @click="finishCheckup"
         >
-         Save
+         Finalizar chequeo
         </button>
       </div>
 
