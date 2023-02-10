@@ -42,11 +42,11 @@ let vm = new Vue({
         localStorage.setItem("rol", client[0].rol);
         console.log(localStorage.getItem("rol"));
         Swal.fire({
-          position: 'top-end',
+          
           icon: 'success',
-          title: 'Inicio sesión',
+          title: `Inicio sesión como ${localStorage.getItem("rol")}`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1800
         })
         this.error = false;
 
@@ -74,9 +74,8 @@ let vm = new Vue({
       } else {
         this.error = true;
         Swal.fire({
-          position: 'top-end',
           icon: 'error',
-          title: 'Inicio sesión fallido',
+          title: 'Inicio de sesión fallido',
           text: 'Revise sus credenciales de ingreso',
           showConfirmButton: false,
           timer: 2500
