@@ -12,11 +12,11 @@ const app = Vue.createApp({
       ],
       checkups: [
         { name: 'Llantas', done: false },
-        { name: 'Luces', done: true },
-        { name: 'Frenos', done: true },
-        { name: 'Liquidos', done: true },
-        { name: 'Gases', done: true },
-        { name: 'Espejos', done: true }
+        { name: 'Luces', done: false },
+        { name: 'Frenos', done: false },
+        { name: 'Liquidos', done: false },
+        { name: 'Gases', done: false },
+        { name: 'Espejos', done: false }
       ],
       carsEntries: [
         {
