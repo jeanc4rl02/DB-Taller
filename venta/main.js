@@ -56,9 +56,8 @@ const app = new Vue({
         if(  this.detalle[index].cantidad > 0){ 
             this.repuestos[id].cantidad++
             if(this.detalle[index].cantidad === 1){  
-                this.detalle[index].cantidad--
-                this.detalle[index].valor = 0 
-                this.detalle.pop(index)
+                 
+                this.detalle.splice(index, 1)
             }else{
                 this.detalle[index].cantidad--
                 this.detalle[index].valor = this.detalle[index].cantidad * this.repuestos[id].valor
