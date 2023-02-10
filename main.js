@@ -14,7 +14,7 @@ let vm = new Vue({
         name: "María",
         lastname: "Pérez",
         user: "mecanico",
-        password: "a",
+        password: "m",
       },
       {
         rol: "Vendedor",
@@ -40,7 +40,7 @@ let vm = new Vue({
         let client = this.users.filter((u) => u.user == this.userEntered);
         localStorage.setItem("name", this.userEntered);
         localStorage.setItem("rol", client[0].rol);
-        console.log(localStorage.getItem("rol"));
+        console.log(localStorage.getItem("arol"));
         this.error = false;
 
        switch(this.userEntered){

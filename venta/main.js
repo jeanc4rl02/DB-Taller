@@ -93,6 +93,8 @@ const app = new Vue({
             localStorage.setItem('detalle', JSON.stringify(this.detalle))
             localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
             alert("Venta completada exitosamente")
+            window.open("../Mecanico/index.html", "_self")
+
         }else{
             alert("Campo de cliente o factura vacia")
         }

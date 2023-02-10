@@ -399,8 +399,10 @@ const app = Vue.createApp({
    facturar(car){
     this.detalle = car.detalle
     localStorage.setItem('detalle', JSON.stringify(this.detalle))
-    
     localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
+    this.carToChange.state='Finalizado'
+    Object.assign(this.carsEntries,this.carToChange)
+    this.updateLocalStorage('carsEntries', this.carsEntries)
     window.open("../venta/index.html", "_self")
 
    },
