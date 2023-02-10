@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="./img/logouwu.png" type="image/x-icon" />
+    <title>Taller Marketmix</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <template>
+        <div class="login-page">
+          <div class="cont-login">
+            <div class="img-login"></div>
+            <div class="form">
+              <form method="post" class="register-form">
+                <section class="banner-login">
+                  <div
+                    class="container d-flex justify-content-start flex-column mt-5 pt-5"
+                  >
+                    <div class="contenedor-title-principal-2">
+                      <span class="title-principal-2" id="titulo-albumes"
+                        >Iniciar Sesión</span
+                      >
+                    </div>
+                  </div>
+                </section>
+                <input type="text" placeholder="name" />
+                <input type="password" placeholder="password" />
+                <input type="text" placeholder="email address" />
+                <button>create</button>
+                <p class="message">
+                  Already registered? <a href="#">Sign In</a>
+                </p>
+              </form>
+              <form method="post" id="filter" class="login-form">
+                <input
+                  type="text"
+                  id="usuario"
+                  name="usuario"
+                  placeholder="Usuario"
+                  v-model="userEntered"
+                />
+                <input
+                  type="password"
+                  id="contraseña"
+                  name="contraseña"
+                  placeholder="Contraseña"
+                  v-model="passwordEntered"
+                />
+                <p v-if="error">Usuario y/o contraseña incorrectos.</p>
+                <button type="submit" @click.prevent="verifyUser">
+                  Iniciar Sesión
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/Login.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
