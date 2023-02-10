@@ -74,7 +74,7 @@ const app = Vue.createApp({
           'currentLogged',
           JSON.stringify(this.assignedWorker)
         )
-        localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
+        ///localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
         localStorage.setItem('failures', JSON.stringify(this.failures))
         localStorage.setItem('usedParts', JSON.stringify(this.usedParts))
       } else {
@@ -349,6 +349,8 @@ const app = Vue.createApp({
     this.detalle = car.detalle
     localStorage.setItem('detalle', JSON.stringify(this.detalle))
     localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
+    localStorage.setItem('cliente', JSON.stringify(this.carToChange.idClient)) 
+    
     this.carToChange.state='Finalizado'
     Object.assign(this.carsEntries,this.carToChange)
     this.updateLocalStorage('carsEntries', this.carsEntries)
@@ -380,6 +382,11 @@ const app = Vue.createApp({
           
       }  
    },
+   logout() {
+    localStorage.removeItem("rol");
+    localStorage.removeItem("name");
+    window.location = "../index.html";
+  },
   },
   created: function () {
     this.onLoadPage()

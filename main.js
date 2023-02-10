@@ -65,6 +65,8 @@ let vm = new Vue({
         break
         case 'vendedor':
           setTimeout(function() {
+            
+            localStorage.setItem("cliente", JSON.stringify(null));
             window.location = "./venta/index.html";
           }, 2000);
           // window.location = "./venta/index.html";

@@ -4,8 +4,7 @@ const app = new Vue({
       cliente: undefined,
       repuestos: [],  
       facturas: [],
-      total: 0,
-      cliente: undefined,
+      total: 0, 
       detalle: []
     },
     methods:{
@@ -92,23 +91,39 @@ const app = new Vue({
             this.total = 0
             localStorage.setItem('detalle', JSON.stringify(this.detalle))
             localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
+            localStorage.setItem("cliente", JSON.stringify(undefined));
             alert("Venta completada exitosamente")
-            window.open("../Mecanico/index.html", "_self")
+             //
+            let rol = localStorage.getItem('rol')
+            if(rol === 'Mecánico'){
+                window.open("../Mecanico/index.html", "_self")
+            }
 
         }else{
             alert("Campo de cliente o factura vacia")
         }
 
-    }
-
-    
-        
+    },
+    logout() {
+     localStorage.removeItem("rol");
+     localStorage.removeItem("name");
+     window.location = "../index.html";
+   }
+  
     },
     created(){
         let catalogo = JSON.parse(localStorage.getItem('catalogo'));
         let Facturas = JSON.parse(localStorage.getItem('facturas'));
-        let Detalle = JSON.parse(localStorage.getItem('detalle'));
+        let Detalle = JSON.parse(localStorage.getItem('detalle')); 
+        let Cliente = JSON.parse(localStorage.getItem('cliente'));  
 
+        console.log(Cliente)
+        if(Cliente === undefined){
+            this.cliente = undefined
+        }else{
+            this.cliente = Cliente
+            console.log(this.cliente)
+        }
 
         //se guardan todas las facturas
         if(Facturas === null){

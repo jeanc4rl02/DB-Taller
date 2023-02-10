@@ -58,8 +58,8 @@ new Vue({
     generateEntry(){
       if(this.clientEntered != null && this.nameEntered != null && this.selectedVehicle != null && this.dateEntered != null && this.description != null){
         this.newEntry = [];
-      this.newEntry = JSON.parse(localStorage.getItem("entrys")) || []
-      this.newEntry.push({
+        this.newEntry = JSON.parse(localStorage.getItem("carsEntries")) || []
+        this.newEntry.push({
         idClient: this.clientEntered,
         name: this.nameEntered,
         plate: this.selectedVehicle,
@@ -71,10 +71,10 @@ new Vue({
         state: "Sin revisar",
         detalle: []
       })
+        localStorage.setItem("carsEntries", JSON.stringify(this.newEntry));
       } else {
         this.errorEntry = true;
       }
-      localStorage.setItem("carsEntries", JSON.stringify(this.newEntry));
       window.location.reload();
     },
     generateNewVehicle(){
@@ -87,8 +87,8 @@ new Vue({
           brand: this.modalBrand,
           model: this.modalModel,
       })
+      localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
       window.location.reload();
-    localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
       } else {
         this.errorVehicle = true;
       }
@@ -103,8 +103,8 @@ new Vue({
           lastname: this.inputLastName,
           phone: this.inputPhone,
       })
+      localStorage.setItem("clients", JSON.stringify(this.clients));
       window.location.reload();
-    localStorage.setItem("clients", JSON.stringify(this.clients));
       } else {
         this.errorModalClient = true;
       }
@@ -112,7 +112,7 @@ new Vue({
     logout() {
       localStorage.removeItem("rol");
       localStorage.removeItem("name");
-      window.location = "./index.html";
+      window.location = "../index.html";
     },
   }
 });

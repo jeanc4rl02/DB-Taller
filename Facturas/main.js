@@ -16,7 +16,12 @@ const app = new Vue({
             this.cliente = this.facturas[index].cliente  
             this.total = this.facturas[index].total 
             this.showModal= true
-        }
+        },
+        logout() {
+         localStorage.removeItem("rol");
+         localStorage.removeItem("name");
+         window.location = "../index.html";
+       }
         
     },
     created(){
