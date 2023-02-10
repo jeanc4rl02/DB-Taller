@@ -28,6 +28,8 @@ new Vue({
     inputName: null,
     inputLastName: null,
     inputPhone: null,
+    modelEntry: null,
+    brandEntry: null
   }, 
   methods: {
     findClient(){
@@ -43,7 +45,9 @@ new Vue({
     },
     findVehicle(){
       let car = this.carsFound.filter(c => c.plate == this.selectedVehicle)
-      this.makeEntered = car[0].brand +"-"+ car[0].model;
+      this.modelEntry = car[0].model;
+      this.brandEntry = car[0].brand
+      this.makeEntered = this.brandEntry +"-"+ this.modelEntry;
       let date = new Date();
       let day = date.getDate();
       let month = date.getMonth();
@@ -58,16 +62,20 @@ new Vue({
       this.newEntry.push({
         idClient: this.clientEntered,
         name: this.nameEntered,
-        vehicle: this.selectedVehicle,
-        date: this.dateEntered,
-        description: this.description
+        plate: this.selectedVehicle,
+        brand: this.brandEntry,
+        model: this.modelEntry,
+        entryDate: this.dateEntered,
+        description: this.description,
+        deliveryDate: null,
+        state: "Sin revisar",
+        detalle: []
       })
-      window.location.reload();
-    localStorage.setItem("entrys", JSON.stringify(this.newEntry));
       } else {
         this.errorEntry = true;
       }
-      
+      localStorage.setItem("carsEntries", JSON.stringify(this.newEntry));
+      window.location.reload();
     },
     generateNewVehicle(){
       if(this.modalId != null && this.modalPlate != null && this.modalBrand != null && this.modalModel != null){

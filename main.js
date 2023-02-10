@@ -3,11 +3,11 @@ let vm = new Vue({
   data: {
     users: [
       {
-        rol: "Admin",
+        rol: "Recepción",
         name: "Juan",
         lastname: "Perez",
-        user: "admin",
-        password: "admin123",
+        user: "recepcion",
+        password: "r",
       },
       {
         rol: "Mecánico",
@@ -57,9 +57,9 @@ let vm = new Vue({
           }, 2000);
           // window.location = "./Mecanico/index.html";
         break
-        case 'admin':
+        case 'recepcion':
           setTimeout(function() {
-            window.location = "";
+            window.location = "./Reception/reception.html";
           }, 2000);
           // window.location = "";
         break

@@ -18,58 +18,7 @@ const app = Vue.createApp({
         { name: 'Gases', done: false },
         { name: 'Espejos', done: false }
       ],
-      carsEntries: [
-        {
-          entryDate: '01/01/2023',
-          deliveryDate: null,
-          description: '',
-          brand: 'mazda 323',
-          model: 2001,
-          plate: 'NRO-185',
-          state: 'Sin revisar',
-          detalle: []
-        },
-        {
-          entryDate: '01/04/2001',
-          deliveryDate: null,
-          description: '',
-          brand: 'subaru r12',
-          model: 2011,
-          plate: 'NSY-578',
-          state: 'Sin revisar',
-          detalle: []
-        },
-        {
-          entryDate: '01/08/2001',
-          deliveryDate: null,
-          description: '',
-          brand: 'bmw e21',
-          model: 2012,
-          plate: 'SIE-901',
-          state: 'Sin revisar',
-          detalle: []
-        },
-        {
-          entryDate: '01/11/2001',
-          deliveryDate: null,
-          description: '',
-          brand: 'renault sandero',
-          model: 2022,
-          plate: 'EPG-106',
-          state: 'Sin revisar',
-          detalle: []
-        },
-        {
-          entryDate: '01/11/2001',
-          deliveryDate: null,
-          description: '',
-          brand: 'Toyota MC12',
-          model: 2019,
-          plate: 'FGA-810',
-          state: 'Sin revisar',
-          detalle: []
-        }
-      ],
+      carsEntries: [],
       cars: [
         { plate: 'ghj-132', brand: 'mazda', model: 2001 },
         { plate: 'ghj-132', brand: 'mazda', model: 2001 }
