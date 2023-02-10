@@ -138,4 +138,28 @@ img{
     background-color: #e96215;
     border-color:  #e96215;;
 }
- 
+@media (max-width: 1134px) {
+     
+
+    .catalogo-container{  
+        
+        justify-items: center; 
+        align-self: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 754px) {
+     
+
+    .catalogo-container{  
+        justify-items: center; 
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr ;
+        gap: 5px;
+        margin: 0;
+    }
+}

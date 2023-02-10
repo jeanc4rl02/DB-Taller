@@ -7,10 +7,13 @@ body{
     background-color: #393E46;
 }
 
-.container{
+.contener{
     background-color: #EEEEEE;  
     border-radius: 25px;
     box-shadow: 5px 5px 4px #000;
+    min-width: 360px;
+    max-width: 80%;
+
 }
 
 .contenedor{
@@ -18,8 +21,9 @@ body{
     display: grid; 
     gap: 10px;
     
-    
 }
+
+
 
 .logout{ 
     text-align: right;   
@@ -83,6 +87,32 @@ input{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
+}
+
+@media (max-width: 1134px) {
+     
+
+    .catalogo-container{  
+        
+        justify-items: center; 
+        align-self: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 754px) {
+     
+
+    .catalogo-container{  
+        justify-items: center; 
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr ;
+        gap: 5px;
+        margin: 0;
+    }
 }
 
 .prod{
