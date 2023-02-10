@@ -40,8 +40,9 @@
                   placeholder="Ingrese Identificación"
                   class="form-control"
                   aria-label="First name"
+                  v-model="clientEntered"
                 />
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" @click.prevent="findClient">
                   <i class="bi bi-search"></i>
                 </button>
                 <button type="button" class="btn btn-success">
@@ -53,9 +54,9 @@
             <div class="col d-flex row">
               <label for="vehicle" class="form-label">Vehículo:</label>
               <div class="d-flex">
-                <select id= "vehicle" class="form-select" aria-label="Default select example">
+                <select id= "vehicle" class="form-select" aria-label="Default select example" v-model="selectedVehicle" @change="findVehicle">
                   <option selected>Seleccione un automovil</option>
-                  <option value="#">One</option>
+                  <option v-for="(car, index) in carsFound" v-bind:value=car.plate>{{car.plate}}</option>
                 </select>
                 <button type="button" class="btn btn-success">
                   <i class="bi bi-plus"></i>
@@ -75,6 +76,7 @@
                 class="form-control"
                 aria-label="First name"
                 disabled
+                v-model="nameEntered"
               />
             </div>
             <div class="col">
@@ -87,6 +89,7 @@
                 class="form-control"
                 aria-label="Make by"
                 disabled
+                v-model="makeEntered"
               />
             </div>
           </div>
@@ -95,12 +98,13 @@
             <div class="col-6">
               <label for="date" class="form-label">Fecha de Ingreso:</label>
               <input
-                type="date"
+                type="text"
                 id="date"
                 name="date"
                 placeholder="Fecha"
                 class="form-control"
                 aria-label="date"
+                v-model="dateEntered"
                 disabled
               />
             </div>
@@ -113,12 +117,13 @@
                 class="form-control"
                 id="description"
                 rows="5"
+                v-model="description"
               ></textarea>
             </div>
           </div>
         </form>
         <div class="text-center">
-          <input class="first-form-btn" type="submit" value="Generar Ingreso" />
+          <input class="first-form-btn" type="submit" value="Generar Ingreso" @click.prevent="generateEntry"/>
         </div>
       </div>
     </div>
