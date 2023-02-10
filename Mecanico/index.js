@@ -26,7 +26,8 @@ const app = Vue.createApp({
           brand: 'mazda 323',
           model: 2001,
           plate: 'NRO-185',
-          state: 'Sin revisar'
+          state: 'Sin revisar',
+          detalle: []
         },
         {
           entryDate: '01/04/2001',
@@ -35,7 +36,8 @@ const app = Vue.createApp({
           brand: 'subaru r12',
           model: 2011,
           plate: 'NSY-578',
-          state: 'Sin revisar'
+          state: 'Sin revisar',
+          detalle: []
         },
         {
           entryDate: '01/08/2001',
@@ -44,7 +46,8 @@ const app = Vue.createApp({
           brand: 'bmw e21',
           model: 2012,
           plate: 'SIE-901',
-          state: 'Sin revisar'
+          state: 'Sin revisar',
+          detalle: []
         },
         {
           entryDate: '01/11/2001',
@@ -53,7 +56,8 @@ const app = Vue.createApp({
           brand: 'renault sandero',
           model: 2022,
           plate: 'EPG-106',
-          state: 'Sin revisar'
+          state: 'Sin revisar',
+          detalle: []
         },
         {
           entryDate: '01/11/2001',
@@ -62,7 +66,8 @@ const app = Vue.createApp({
           brand: 'Toyota MC12',
           model: 2019,
           plate: 'FGA-810',
-          state: 'Sin revisar'
+          state: 'Sin revisar',
+          detalle: []
         }
       ],
       cars: [
@@ -274,11 +279,28 @@ const app = Vue.createApp({
         const isFailAdded = this.failures.some(
           fail => fail.car === this.carToChange.plate
         )
-
+        /** */  
         console.log('isFailAdded', isFailAdded)
         if (isFailAdded) {
+          this.detalle.push(
+            {
+              "id": 9,
+              "nombre": "Mano Obra",
+              "valor": 30 * this.failures.length, 
+              "cantidad": 1
+            },
+            {
+              "id": 10,
+              "nombre": "Chequeo",
+              "valor": 45,
+              "cantidad": 1
+            },
+          )
+          this.carToChange.detalle = this.detalle 
+          localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
+            /** */  
           this.carToChange.state = 'Para chequeo'
-          Object.assign(this.carsEntries, this.carToChange)
+          Object.assign(this.carsEntries, this.carToChange) 
           this.updateLocalStorage('carsEntries', this.carsEntries)
           console.log('ESTADO', this.carToChange)
           alert('El vehículo ha sido reparado')
@@ -307,7 +329,7 @@ const app = Vue.createApp({
         this.carToChange.state = 'Para entrega'
 
         Object.assign(this.carsEntries, this.carToChange)
-
+        this.updateLocalStorage('carsEntries', this.carsEntries)
         console.log(this.carToChange.deliveryDate)
         console.log(this.carToChange)
         alert(`Vehículo listo para entrega el ${this.carToChange.deliveryDate}. Por favor continue a facturación`)
@@ -345,6 +367,14 @@ const app = Vue.createApp({
           alert("El producto ya no tienen stock disponible")
       } 
    },
+   facturar(car){
+    this.detalle = car.detalle
+    localStorage.setItem('detalle', JSON.stringify(this.detalle))
+    
+    localStorage.setItem('catalogo', JSON.stringify(this.repuestos))
+    window.open("../venta/index.html", "_self")
+
+   },
 
    aumentar(id, index){
       if(  this.repuestos[id].cantidad > 0){ 
@@ -377,6 +407,8 @@ const app = Vue.createApp({
     this.onLoadPage()
 
     let catalogo = JSON.parse(localStorage.getItem('catalogo'));
+    let Detalle = JSON.parse(localStorage.getItem('detalle'));
+
     //guarda el catalogo 
     if(catalogo === null){
       this.repuestos.push(
