@@ -149,7 +149,7 @@
             <thead>
               <tr>
                 <th>Falla:</th>
-                <th>Repuestos:</th>
+                <th>Repuestos: <button type="button" class="btn btn-primary btn-sm rounded-2" @click="showModal = true">Buscar</button></th>
               </tr>
             </thead>
             <tbody>
@@ -184,9 +184,42 @@
                 </td>
                 <td>
                   <div>
-                    Repuesto 1 <button type="button" class="btn btn-danger btn-sm rounded-2">-</button>&nbsp<button type="button" class="btn btn-success btn-sm rounded-2">+</button>
+                    
+                    <table class="table"> 
+                        <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Producto</th>
+                              <th scope="col">Cantidad</th>  
+                          </tr>
+                        </thead>
+                        <tbody >
+                                    
+                          <tr v-for="(item, index) of detalle">
+                              <th scope="row">{{index}}</th>
+                              <td>{{item.nombre}}</td>
+                              
+                              <td>
+                                <div class="row align-self-center align-self-center">
+                                    <div class="col px-0  text-center  ">
+                                        {{item.cantidad}} und
+                                    </div>
+                                    <div class="col px-0 t">
+                                        <button class="btn btn-success" @click="aumentar(item.id, index)"> + </button>
+                                        <button class="btn btn-danger "  @click="restar(item.id, index)"> - </button>
+                                    </div>
+                                </div>
+                              </td> 
+                               
+                          </tr> 
+                        </tbody>
+                  
+                  </table>
+
+
+
                   </div>
-                  <button type="button" class="btn btn-primary btn-sm rounded-2">Buscar</button>
+                  
                 </td>
               </tr>
               <tr>
@@ -204,6 +237,67 @@
           <br>
         
       </div>
+
+      <!-- Modal Catalogo Repuestos -->
+        
+        <div v-if="showModal">
+          <transition name="modal">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                  <div class="modal-container">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                              
+                            <div class="catalogo">
+                                
+                              <div>
+                                  <h2 style="text-align: center;">Repuestos</h2>
+                              </div> 
+                              <br>
+                              <div class="catalogo-container">
+                                  <div  class="" v-for="(repuesto, index) of repuestos">
+                                                  
+                                      <div class="prod ">
+                                          <div class="left">
+                                              <img :src="repuesto.imagen"  alt="">
+                                          </div>
+                                          <div class="cen">
+                                              <div  class="up">
+                                                  {{repuesto.nombre}}
+                                              </div>
+                                              <div class="price">
+                                                  ${{repuesto.valor}}usd
+                                              </div>
+                                              <div  class="down">
+                                                  {{repuesto.cantidad}} und
+                                              </div>
+                                          </div>
+                                          <div class="right">
+                                              <button class="plus" @clicK="agregar(repuesto.id)"> + </button> 
+                                          </div> 
+                                      </div> 
+                                  </div> 
+  
+                              </div>
+  
+                          </div>
+   
+                          </div>
+                          <div class="col text-center pt-3">
+                              <button type="button" class="guardar" @click="showModal = false">Guardar</button>
+                      
+                          </div>
+                        </div>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+          </transition>
+        </div>
+
+
 
       <!-- Repuestos -->
       <div
