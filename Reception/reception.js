@@ -33,6 +33,7 @@ new Vue({
   }, 
   methods: {
     findClient(){
+      this.nameEntered = ""
       if(this.clients){
         const person = this.clients.filter(c => c.id == this.clientEntered);
         this.nameEntered = person[0].name;
