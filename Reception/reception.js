@@ -42,6 +42,7 @@ new Vue({
       } else {
         this.error = true;
       }
+      this.vehicles = JSON.parse(localStorage.getItem("vehicles"))
       if(this.vehicles != null){
         const vehicle = this.vehicles.filter(v => v.id == this.clientEntered);
         this.carsFound = vehicle;
@@ -95,7 +96,8 @@ new Vue({
       })
       localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
       this.modalId = this.clientEntered 
-      this.findClient()
+      this.findClient() 
+      this.onLoadPage()
       this.showModal = false 
       //window.location.reload();
       } else {
@@ -127,5 +129,62 @@ new Vue({
       localStorage.removeItem("name");
       window.location = "../index.html";
     },
-  }
+    onLoadPage () {
+      this.isPendingRevisionsScreen = true
+      // this.assignWorker()
+      if (
+        //currentLogged:
+        localStorage.getItem('vehicles') === null ||
+        localStorage.getItem('vehicles') === undefined ||
+        //carsEntries:
+        localStorage.getItem('carsEntries') === null ||
+        localStorage.getItem('carsEntries') === undefined ||
+        //failures:
+        localStorage.getItem('failures') === null ||
+        localStorage.getItem('failures') === undefined ||
+        //usedParts:
+        localStorage.getItem('usedParts') === null ||
+        localStorage.getItem('usedParts') === undefined
+      ) {
+        localStorage.setItem(
+          'vehicles',
+          JSON.stringify(this.vehicles)
+        )
+        ///localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
+        localStorage.setItem('failures', JSON.stringify(this.failures))
+        localStorage.setItem('usedParts', JSON.stringify(this.usedParts))
+      } else {
+        //vehicles:
+        localStorage.setItem(
+          'vehicles',
+          localStorage.getItem('vehicles')
+        )
+        const toUpdateLocalVehicles = JSON.parse(
+          localStorage.getItem('vehicles')
+        )
+        this.vehicles = toUpdateLocalVehicles
+        //carsEntries:
+        localStorage.setItem('carsEntries', localStorage.getItem('carsEntries'))
+        const toUpdateLocalCarsEntries = JSON.parse(
+          localStorage.getItem('carsEntries')
+        )
+        this.carsEntries = toUpdateLocalCarsEntries
+        //failures:
+        localStorage.setItem('failures', localStorage.getItem('failures'))
+        const toUpdateLocalFailures = JSON.parse(
+          localStorage.getItem('failures')
+        )
+        this.failures = toUpdateLocalFailures
+        //usedParts:
+        localStorage.setItem('usedParts', localStorage.getItem('usedParts'))
+        const toUpdateLocalUsedParts = JSON.parse(
+          localStorage.getItem('usedParts')
+        )
+        this.usedParts = toUpdateLocalUsedParts
+      }
+    },
+  },
+  updated() { 
+     this.onLoadPage()
+  },
 });

@@ -56,13 +56,26 @@ const app = Vue.createApp({
     onLoadPage () {
       this.isPendingRevisionsScreen = true
       // this.assignWorker()
+
+      if (
+        localStorage.getItem('carsEntries') === null ||
+        localStorage.getItem('carsEntries') === undefined
+      ) {
+        //localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
+      } else {
+        localStorage.setItem('carsEntries', localStorage.getItem('carsEntries'))
+        const toUpdateLocalCarsEntries = JSON.parse(
+          localStorage.getItem('carsEntries')
+        )
+        this.carsEntries = toUpdateLocalCarsEntries
+      }
+
       if (
         //currentLogged:
         localStorage.getItem('currentLogged') === null ||
         localStorage.getItem('currentLogged') === undefined ||
         //carsEntries:
-        localStorage.getItem('carsEntries') === null ||
-        localStorage.getItem('carsEntries') === undefined ||
+
         //failures:
         localStorage.getItem('failures') === null ||
         localStorage.getItem('failures') === undefined ||
@@ -74,7 +87,7 @@ const app = Vue.createApp({
           'currentLogged',
           JSON.stringify(this.assignedWorker)
         )
-        ///localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
+        //localStorage.setItem('carsEntries', JSON.stringify(this.carsEntries))
         localStorage.setItem('failures', JSON.stringify(this.failures))
         localStorage.setItem('usedParts', JSON.stringify(this.usedParts))
       } else {
@@ -84,15 +97,11 @@ const app = Vue.createApp({
           localStorage.getItem('currentLogged')
         )
         const toUpdateLocalCurrentLogged = JSON.parse(
-          localStorage.getItem('carsEntries')
+          localStorage.getItem('currentLogged')
         )
         this.currentLogged = toUpdateLocalCurrentLogged
         //carsEntries:
-        localStorage.setItem('carsEntries', localStorage.getItem('carsEntries'))
-        const toUpdateLocalCarsEntries = JSON.parse(
-          localStorage.getItem('carsEntries')
-        )
-        this.carsEntries = toUpdateLocalCarsEntries
+
         //failures:
         localStorage.setItem('failures', localStorage.getItem('failures'))
         const toUpdateLocalFailures = JSON.parse(
@@ -388,6 +397,8 @@ const app = Vue.createApp({
     window.location = "../index.html";
   },
   },
+ 
+
   created: function () {
     this.onLoadPage()
 
@@ -465,7 +476,8 @@ const app = Vue.createApp({
   }else{
       this.repuestos = catalogo;
   }
-  }
+  },
+  
 })
 
 app.mount('#app')
