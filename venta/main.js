@@ -5,7 +5,8 @@ const app = new Vue({
       repuestos: [],  
       facturas: [],
       total: 0, 
-      detalle: []
+      detalle: [],
+      
     },
     methods:{
      agregar(id){

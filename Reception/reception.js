@@ -33,6 +33,9 @@ new Vue({
   }, 
   methods: {
     findClient(){
+      this.dateEntered = ""
+      this.makeEntered = ""
+      this.nameEntered = "" 
       if(this.clients){
         const person = this.clients.filter(c => c.id == this.clientEntered);
         this.nameEntered = person[0].name;
@@ -43,7 +46,7 @@ new Vue({
         const vehicle = this.vehicles.filter(v => v.id == this.clientEntered);
         this.carsFound = vehicle;
       }
-      
+      this.modalId =  this.clientEntered
       console.log(this.carsFound);
     },
     findVehicle(){
@@ -91,7 +94,10 @@ new Vue({
           model: this.modalModel,
       })
       localStorage.setItem("vehicles", JSON.stringify(this.newVehicle));
-      window.location.reload();
+      this.modalId = this.clientEntered 
+      this.findClient()
+      this.showModal = false 
+      //window.location.reload();
       } else {
         this.errorVehicle = true;
       }
@@ -107,7 +113,11 @@ new Vue({
           phone: this.inputPhone,
       })
       localStorage.setItem("clients", JSON.stringify(this.clients));
-      window.location.reload();
+      this.clientEntered = this.inputId 
+      this.modalId = this.inputId 
+      this.findClient()
+      this.showModal1 = false
+      //window.location.reload();
       } else {
         this.errorModalClient = true;
       }
